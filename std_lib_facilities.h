@@ -25,22 +25,22 @@
 #define H112 251113L
 
 
-#include<iostream>
-#include<iomanip>
-#include<fstream>
-#include<sstream>
-#include<cmath>
-#include<cstdlib>
-#include<string>
-#include<list>
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <sstream>
+#include <cmath>
+#include <cstdlib>
+#include <string>
+#include <list>
 #include <forward_list>
-#include<vector>
-#include<unordered_map>
-#include<algorithm>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
 #include <array>
 #include <regex>
-#include<random>
-#include<stdexcept>
+#include <random>
+#include <stdexcept>
 
 //------------------------------------------------------------------------------
 
