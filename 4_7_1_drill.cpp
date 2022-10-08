@@ -11,16 +11,24 @@ int main()
    * 5. Add a 'almost equal' if within 1.0/100
    * 6. Now remove val1 and val2 and keep track of which is smallest
    * and which is largest. Add the same text as before
-   * 7.
+   * 7. Add a unit to cin and accept cm, m, in, ft. Add conversion
+   *    Read into a string 
+   * 8. Reject units like yard, meter, km, gallons ect
+   * 9. Keep track of smalles and largest and sum of everything
+   * 10. Keep all the values entered (converted into meters)
+   *     and into a vector. At the end print all values out
+   * 11. Before writing out the values from vector, sort them.
    */
   double largestval = 0;
   double smallestval = 10000;
   double choose_a_value = 0;
   bool flag = true;
   double almost_equal = 0;
+  string unit = "";
+  
   while(cin>>choose_a_value){
     
-    cout<<choose_a_value<<'\n';
+    cout<<choose_a_value<<unit<<'\n';
     if(choose_a_value>largestval)
         largestval = choose_a_value;
     if(choose_a_value<smallestval)
