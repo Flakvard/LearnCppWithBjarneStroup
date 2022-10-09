@@ -28,27 +28,37 @@ int main()
     cin>>answer;
 
     if(answer == 'y'){
-        program_number = next_number; 
-        change_number = (next_number - previous_number)/2;
-        next_number -= change_number;
+        program_number = next_number;
+        change_number = (previous_number - next_number)/2;
+        previous_number = next_number;
+        if(change_number == 0) change_number = 1;
+        if(change_number<0)
+            next_number = previous_number + change_number;
+        if(change_number>0)
+            next_number = previous_number - change_number;
         ++i;
-        previous_number = next_number+change_number;
-    }else if(answer == 'n'){
-        program_number = next_number+1;
-        change_number = (next_number - previous_number)/2;
-        next_number += change_number;
-        ++i;
-        previous_number = next_number-change_number;
 
+    }else if(answer == 'n'){
+        program_number = next_number;
+        change_number = (previous_number - next_number)/2;
+        previous_number = next_number;
+        if(change_number == 0) change_number = 1;
+        if(change_number<0)
+            next_number = previous_number - change_number;
+        if(change_number>0)
+            next_number = previous_number + change_number;
+        ++i;
     }else{
       cout<<"Wrong, try again and use 'y' or 'n'\n";
     } 
-      
+    cout<<"Change_number "<<change_number<<'\n';  
     cout<<"Previous number "<<previous_number<<'\n';
     cout<<"Next number "<<next_number<<'\n';
-    
-    if(program_number == gussing_number) cout<<"Wow, you won\n";
-  
-  }
+    if(program_number == gussing_number) {
+        i = 7;
+        cout<<"Wow, you won\n";
+    }
+
+   }
   cout<<"Sorry, you have no you have chances left\n";
 }
