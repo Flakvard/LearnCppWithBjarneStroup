@@ -44,12 +44,6 @@ int main()
         default:
            cout<<"Wrong char, please choose r, p or s as options\n";
            break;
-        }
-    
+    }
   }
- 
-
-
-
-
 }
