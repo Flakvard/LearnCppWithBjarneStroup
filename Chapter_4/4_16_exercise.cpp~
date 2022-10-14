@@ -5,6 +5,18 @@ int main()
   /* Recreate the drill from chapter 4:
    * Find the mode for all positive integers inputs.
    * The drill from Chapter 4:
+   * Comments: This one took a while for me to finish.
+   * I accomplise this one by reading int inputs into
+   * a vector. 
+   * Then sorting the vector and check if the current 
+   * number is the same as the last one. 
+   * if it is then increment count by one each time. 
+   * Also store/track the largest double and the largest count.
+   * When the next number comes it checks again for doubles and
+   * counts the doubles. If it has a higher count than the previous
+   * number, then assign it as the largest double and largest cout.
+   * Then print out the largest double(mode) and how many times it 
+   * was counted.
    */
   double largestval = 0;
   double smallestval = 10000;
