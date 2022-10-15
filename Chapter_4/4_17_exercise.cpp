@@ -32,13 +32,13 @@ int main()
     LargestValue = Chosen_values.size()-1; 
     min_value = Chosen_values[0];
     max_value = Chosen_values[LargestValue];
-
-    for(int i = 0; i < Chosen_values.size(); ++i){
+  } 
+  for(int i = 0; i < Chosen_values.size(); ++i){
         cout<<Chosen_values[i]<<'\n';
         if(i > 1 && Chosen_values[i]==Chosen_values[i-1]){
           if(Chosen_values[i] != doublecate_value){
           doublecate_value = Chosen_values[i];
-          countDuplicate = 0;
+          countDuplicate = 1;
           ++countDuplicate;
           }else
             ++countDuplicate;
@@ -54,6 +54,4 @@ int main()
     cout<<"The max value is: "<<max_value<<'\n';
     cout<<"The mode value is: "<<trackDuplicate<<'\n';
     cout<<"The mode is counted: "<<trackCount<<'\n';
-
-  } 
 }
