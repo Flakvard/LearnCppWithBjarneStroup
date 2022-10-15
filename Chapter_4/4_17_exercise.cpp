@@ -6,6 +6,11 @@ int main()
    /* Write a program that finds the min, max and mode
     * of a sequence of strings.
     * Comments:
+    * This one was easier since I knew kinda how I would tackel
+    * the tracking of most counted duplicates and since the 
+    * higest and lowest values were easy because it is sorted
+    * in alphabetical order and by each character. e.g zab 
+    * comes before zba and zza.
     *
     */
   string choose_a_value = "";

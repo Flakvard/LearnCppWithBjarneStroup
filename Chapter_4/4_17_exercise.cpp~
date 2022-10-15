@@ -33,11 +33,12 @@ int main()
         if(i > 1 && Chosen_values[i]==Chosen_values[i-1]){
           if(Chosen_values[i] != doublecate_value){
           doublecate_value = Chosen_values[i];
+          countDuplicate = 0;
           ++countDuplicate;
           }else
             ++countDuplicate;
           if(countDuplicate>trackCount){
-            trackDuplicate = Chosen_values[i];
+            trackDuplicate = doublecate_value;
             trackCount = countDuplicate;
           }
 
