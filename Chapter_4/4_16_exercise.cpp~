@@ -5,18 +5,6 @@ int main()
   /* Recreate the drill from chapter 4:
    * Find the mode for all positive integers inputs.
    * The drill from Chapter 4:
-   * Comments: This one took a while for me to finish.
-   * I accomplise this one by reading int inputs into
-   * a vector. 
-   * Then sorting the vector and check if the current 
-   * number is the same as the last one. 
-   * if it is then increment count by one each time. 
-   * Also store/track the largest double and the largest count.
-   * When the next number comes it checks again for doubles and
-   * counts the doubles. If it has a higher count than the previous
-   * number, then assign it as the largest double and largest cout.
-   * Then print out the largest double(mode) and how many times it 
-   * was counted.
    */
   double largestval = 0;
   double smallestval = 10000;
@@ -84,34 +72,36 @@ int main()
           cout<<"The numbers are almost equal by only "
               <<almost_equal<<'\n';
     }
+  }
     sort(Chosen_values);
     //for(double k :Chosen_values)
       //cout<<k<<'\n';
-
     for(int k = 1; k < Chosen_values.size();++k){
-      if(Chosen_values.size()>1){
-       cout<<"Nr:"<<k<<" "<<Chosen_values[k]
-           <<'\t'<<'\n'; 
+      if(Chosen_values.size()>1){ //Start printing when size is 2 or more
+       cout<<"Nr:"<<k<<" "<<Chosen_values[k]<<'\n'; //prints out the values 
 
-        duplicates = Chosen_values[k]-Chosen_values[k-1];
+        duplicates = Chosen_values[k]-Chosen_values[k-1];//if the previous
+                                                         //values is the same
+                                                         //as the next value
+                                                         //then assign it to
+                                                         //duplicates.
         if(duplicates == 0){
-          if(Chosen_values[k] != trackDuplicate){
-             trackDuplicate = Chosen_values[k];
-             countDuplicate = 0; //rest value
-             ++countDuplicate;
+          if(Chosen_values[k] != trackDuplicate){ //not the same previousvalue
+             trackDuplicate = Chosen_values[k]; //start tracking new value
+             countDuplicate = 1; //rest value
+             ++countDuplicate; //increment by one for first duplicate
           }else {
-             ++countDuplicate;  
+             ++countDuplicate; // increment if the same value as previous 
           }
-          if (countDuplicate > trackCount){
+          if (countDuplicate > trackCount){ //
            trackCount = countDuplicate;
            trackLargestDuplicate = trackDuplicate;
           }
          }
         }
-      } 
+      }
     cout<<"Total value: "<<total_value_in_m<<"m"<<"\n";
-    cout<<"The mode is: "<<trackLargestDuplicate
-        <<" and was counted "<<trackCount<<'\n';
-    }
+    cout<<"The mode is: "<<trackLargestDuplicate<<" m"<<'\n';
+    cout<<"The mode was counted: "<<trackCount+1<<'\n';
   
 }
