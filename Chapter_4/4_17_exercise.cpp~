@@ -16,8 +16,8 @@ int main()
   string choose_a_value = "";
   string min_value = "";
   string max_value = "";
-  string smallest_value = "";
-  string highest_value = "";
+  int smallest_value = 0;
+  int highest_value = 0;
   int LargestValue = 0;
   string mode = "";
   string doublecate_value = "";
@@ -55,6 +55,7 @@ int main()
     string trackHighestString = "";
     string trackLowestString = "";
     int word_count = 0;
+    int track_word_count = 0;
     for(int i = 1; i < Chosen_values.size(); ++i)
     {
         cout<<Chosen_values[i]<<'\t'<<Chosen_values[i].size()<<'\n';

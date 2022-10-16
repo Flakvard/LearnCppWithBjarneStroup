@@ -12,20 +12,36 @@ int main()
     * both x1 and x2.
     * Comments:
     * I have seen this equation before in school, but I did not 
-    * remember it so I had to research online
+    * remember how to solve it, so I had to research online
     *
     */
-vector<string> words
-{
-  "a", "a", "b", "barabas", "likisteinumidot", "z", "z", "z"
-};
-
-for(int i = 0; i < words.size(); ++i)
-{
-    cout<<words[i]<<'\t'<<words[i].size()<<'\n';
-}
 
 
+   double a = 0;
+   double b = 0;
+   double c = 0; 
+
+  cout<<"Using quadratic equation, ax²+bx+c=0, to solve expression\n"
+      <<"Plese insert values a, b and c.\n";
+  cin>>a>>b>>c;
+  
+  cout<<"\nx = (-b +/- sqrt(b²-4ac) ) / 2a\n"
+      <<"\nx = ("<<-b<<" +/- sqrt("
+      <<b<<"²-4*"<<a<<"*"<<c<<") ) / 2*"<<a<<'\n';
+  cout<<"\nx = ("<<-b<<" +/- sqrt("
+      <<b*b<<"-("<<-4*a*c<<")) ) / "<<2*a<<'\n';
+  cout<<"\nx = ("<<-b<<" +/- sqrt("
+      <<b*b-4*a*c<<")) ) / "<<2*a<<'\n';
+  cout<<"\nx = ("<<-b<<" +/- "
+      <<sqrt(b*b-4*a*c)<<") / "<<2*a<<'\n';
+  cout<<"\nx = ("<<-b<<" + "
+      <<sqrt(b*b-4*a*c)<<") / "<<2*a<<'\t';
+  cout<<"x = ("<<-b<<" - "
+      <<sqrt(b*b-4*a*c)<<") / "<<2*a<<'\n';
+  cout<<"\nx = ("<<-b+(sqrt(b*b-4*a*c))<<") / "<<2*a<<'\t';
+  cout<<"x = ("<<-b-(sqrt(b*b-4*a*c))<<") / "<<2*a<<'\n';
+  cout<<"\nx = ("<<(-b+(sqrt(b*b-4*a*c)))/(2*a)<<'\t';
+  cout<<"x = "<<(-b-(sqrt(b*b-4*a*c)))/(2*a)<<'\n';
 }
 
 
