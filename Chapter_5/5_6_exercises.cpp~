@@ -14,14 +14,6 @@ int main()
    * 5. Add a function that can convert Kelvin to Celsius
    * 6. Add a function that can convert Celsius to Fahrenheit and back again.
    * 7. I will continue this in a new file... 5_7_exercises.cpp
-   * Comments: overall I think this was okey exercies. What I found most helpful
-   * was the "Try this" exercies. Especally the Error precondition and postcondition.
-   * "Error: Precondition input less than -273.15" and
-   * "Error: Postcondition output less than 0" which checks the functions input
-   * and output. Kelvin can never be less than 0 or -273.15 celsius. 
-   * So we add c<-273.15, but if c is an int an the input was a very high number
-   * it could bypass the c<-273.15, so therefor we must add as a postcondition k<0.
-   */
   double c = 0;         //declare input variable
   cin>>c;               //retrieve temperature to input variable
   double k = ctof(c);   //convert temperature
