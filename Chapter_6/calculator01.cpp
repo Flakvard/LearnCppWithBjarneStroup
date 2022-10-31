@@ -1,3 +1,4 @@
+
 //
 // This is example code from Chapter 6.6 "Trying the first version" of
 // "Software - Principles and Practice using C++" by Bjarne Stroustrup
@@ -77,7 +78,7 @@ double primary()     // read and evaluate a Primary
 int main()
 try {
     while (cin)
-        cout <<"="<<expression() << '\n';
+        cout << "=" << expression() << '\n';
     keep_window_open("~0");
 }
 catch (exception& e) {

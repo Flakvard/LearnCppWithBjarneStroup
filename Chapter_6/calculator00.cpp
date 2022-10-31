@@ -41,7 +41,7 @@ Token get_token()    // read a token from cin
     default:
         error("Bad token");
     }
-    return 0;
+    return 2;
 }
 
 //------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ double primary()     // read and evaluate a Primary
     default:
         error("primary expected");
     }
-    return 0;
+    return 2;
 }
 //------------------------------------------------------------------------------
 
