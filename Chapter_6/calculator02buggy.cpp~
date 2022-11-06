@@ -107,28 +107,19 @@ double primary();    // declaration so that primary() can call expression()
 //------------------------------------------------------------------------------
 int main()
 {
-  double left = 0;
-  Token t = ts.get();
-    while (true) {
-        switch (t.kind) {
-        case '*':
-            left *= primary();
-            t = ts.get();
-        case '/':
-        {
-            double d = primary();
-            if (d == 0) error("divide by zero");
-            left /= d;
-            t = ts.get();
-            break;
-        }
-        default:
-            ts.putback(t);     // put t back into the token stream
-            return left;
-        }
-    }
-}
+  double val = 0;
+  while(cin)
+  {
+    Token t = ts.get();
 
+    if(t.kind == 'q') break; // 'q' for "quit"
+    if(t.kind == ';') 
+      cout<<"="<<val<<'\n'; // ';' for "print now"
+    else
+      ts.putback(t);
+    val = expression();
+  }
+}
 //------------------------------------------------------------------------------
 
 // deal with + and -
@@ -165,7 +156,7 @@ double primary()
     {
         double d = expression();
         t = ts.get();
-        if (t.kind != ')') error(')' expected);
+        if (t.kind != ')') error("')' expected");
             return d;
       break;
     }
