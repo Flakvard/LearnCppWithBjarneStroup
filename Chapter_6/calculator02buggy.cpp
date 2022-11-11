@@ -75,8 +75,8 @@ Token Token_stream::get()
     cin >> ch;    // note that >> skips whitespace (space, newline, tab, etc.)
 
     switch (ch) {
-    case ';':    // for "print"
-    case 'q':    // for "quit"
+    case '=':    // for "print"
+    case 'x':    // for "quit"
     case '(': case ')': case '+': case '-': case '*': case '/':
         return Token(ch);        // let each character represent itself
     case '.':
@@ -107,13 +107,18 @@ double primary();    // declaration so that primary() can call expression()
 //------------------------------------------------------------------------------
 int main()
 {
+  std::cout<<"Welcome to our simple calculator.\n"
+           <<"Please enter expression using floating-point numbers\n"
+           <<"The calculator uses +,-,*,/,( and ) operators\n"
+           <<"A number cannot start negativ. Fx. -3+3 but 3-6 you can\n";
   double val = 0;
   while(cin)
   {
+    std::cout<<"To quit simply type 'x' and to end a expression type '='\n";
     Token t = ts.get();
 
-    if(t.kind == 'q') break; // 'q' for "quit"
-    if(t.kind == ';') 
+    if(t.kind == 'x') break; // 'q' for "quit"
+    if(t.kind == '=') 
       cout<<"="<<val<<'\n'; // ';' for "print now"
     else
       ts.putback(t);
@@ -135,7 +140,7 @@ double expression()
             t = ts.get();
             break;
         case '-':
-            left += term();    // evaluate Term and subtract
+            left -= term();    // evaluate Term and subtract
             t = ts.get();
             break;
         default:
@@ -184,6 +189,7 @@ double term()
         case '*':
             left *= primary();
             t = ts.get();
+            break;
         case '/':
         {
             double d = primary();
