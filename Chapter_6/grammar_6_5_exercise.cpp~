@@ -2,7 +2,7 @@
 
 /*
  * Add the article "the" to the "English" grammer in 
- * ½6.4.1, so that it can describe sentace such as 
+ * 6.4.1, so that it can describe sentace such as 
  * "The birds fly but the fish swim".
  */
 
@@ -47,25 +47,36 @@ int main()
   while(true)
   {
     cin>>sentence;
-    if(sentence == "."){
-      for(int i; i<words.size(); ++i)
-        cout<<words[i];
-    }
+    if(sentence == ".")
+        break;
     words.push_back(Sentences(sentence));
   }
+  for(int i = 0; i<words.size(); ++i)
+    cout<<words[i];
 }
+
 string Sentences(string sentence)
 {
   string d = sentence;
   string words = "";
-  words = Conjunction(d);
+  words = Article(d);
   return words;
 };
 
-string Conjunction(string sentence)
+string Article(string sentence)
 {
   string d = sentence;
-  if(d == "and"||d == "or"||d == "but")
+  if(d == "the")
+  {
+    return d;
+  }else{
+    return Noun(d);
+  }
+}
+string Noun(string sentence)
+{
+  string d = sentence;
+  if(d == "birds"||d == "fish"||d == "C++")
   {
     return d;
   }else{
@@ -80,32 +91,20 @@ string Verb(string sentence)
   {
     return d;
   }else{
-    return Noun(d);
+    return Conjunction(d);
   }
 }
 
-string Noun(string sentence)
+string Conjunction(string sentence)
 {
   string d = sentence;
-  if(d == "birds"||d == "fish"||d == "C++")
-  {
-    return d;
-  }else{
-    return Article(d);
-  }
-}
-
-string Article(string sentence)
-{
-  string d = sentence;
-  if(d == "the")
+  if(d == "and"||d == "or"||d == "but")
   {
     return d;
   }else{
     return "Not OK!";
   }
 }
-
 
 /* Sentence:
  *    Article Noun Verb                     // e.g., the C++ rules
