@@ -2,7 +2,7 @@
 
 /*
  * Add the article "the" to the "English" grammer in 
- * 6.4.1, so that it can describe sentace such as 
+ * ½6.4.1, so that it can describe sentace such as 
  * "The birds fly but the fish swim".
  */
 
@@ -40,32 +40,71 @@ string Conjunction(string sentence);
 string Noun(string sentence);
 string Article(string sentence);
 string Verb(string sentence);
+vector<string> words;
 int main()
 {
   string sentence = "";
-  vector <string> words;
   while(true)
   {
     cin>>sentence;
-    if(sentence == ".")
-        break;
-    if(words.size() == 0){
-       words.push_back(Sentences(sentence));
-    }else{
-       words.push_back(Sentences(sentence));
+    if(sentence == "."){
+      for(int i = 0; i<words.size(); ++i)
+        cout<<words[i]<<" ";
     }
+    if(words.size() == 0){
+    words.push_back(sentence);
+    }else{
+    words.push_back(Sentences(sentence));
   }
-  for(int i = 0; i<words.size(); ++i)
-    cout<<words[i];
+  }
 }
-
 string Sentences(string sentence)
 {
   string d = sentence;
   string words = "";
-  words = Article(d);
+  words = Conjunction(d);
   return words;
 };
+
+string Conjunction(string sentence)
+{
+  string d = sentence;
+  if(d == "and"||d == "or"||d == "but")
+  {
+    if(words[words.size()-1] == "fly")
+      return d;
+    else return "Not OK!";
+  }else{
+    return Verb(d);
+  }
+}
+
+string Verb(string sentence)
+{
+  string left = words[words.size()-1];
+  string d = sentence;
+  if(d == "rules"||d == "fly"||d == "swim"&& left == "birds")
+  {
+    if(words[words.size()-1] == "birds")
+      return d;
+    else return "Not OK!";
+  }else{
+    return Noun(d);
+  }
+}
+
+string Noun(string sentence)
+{
+  string d = sentence;
+  if(d == "birds"||d == "fish"||d == "C++" )
+  {
+  if(words[words.size()-1] == "the")
+      return d;
+  else return "Not OK!";
+  }else
+    return Article(d);
+  
+}
 
 string Article(string sentence)
 {
@@ -74,41 +113,10 @@ string Article(string sentence)
   {
     return d;
   }else{
-    return Noun(d);
-  }
-}
-string Noun(string sentence)
-{
-  string d = sentence;
-  if(d == "birds"||d == "fish"||d == "C++")
-  {
-    return d;
-  }else{
-    return Verb(d);
-  }
-}
-
-string Verb(string sentence)
-{
-  string d = sentence;
-  if(d == "rules"||d == "fly"||d == "swim")
-  {
-    return d;
-  }else{
-    return Conjunction(d);
-  }
-}
-
-string Conjunction(string sentence)
-{
-  string d = sentence;
-  if(d == "and"||d == "or"||d == "but")
-  {
-    return d;
-  }else{
     return "Not OK!";
   }
 }
+
 
 /* Sentence:
  *    Article Noun Verb                     // e.g., the C++ rules
