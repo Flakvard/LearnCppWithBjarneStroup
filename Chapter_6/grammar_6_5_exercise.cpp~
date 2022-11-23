@@ -41,6 +41,25 @@ string Noun(string sentence);
 string Article(string sentence);
 string Verb(string sentence);
 vector<string> words;
+vector<string> conj_vect = {
+    "and",
+    "or",
+    "but"
+
+};
+vector<string> noun_vect = {
+    "birds",
+    "fish",
+    "C++",
+};
+vector<string> artice_vect = {
+    "the"
+};
+vector<string> verb_vect = {
+    "rules",
+    "fly",
+    "swim"
+};
 int main()
 {
   string sentence = "";
@@ -69,37 +88,52 @@ string Sentences(string sentence)
 string Conjunction(string sentence)
 {
   string d = sentence;
-  if(d == "and"||d == "or"||d == "but")
+  for(int i = 0; i<conj_vect.size(); ++i)
   {
-    return d;
-  }else{
-    return Verb(d);
+    if(d == conj_vect[i])
+    {
+      for(int i = 0; i<verb_vect.size(); ++i)
+      {
+      if(words[words.size()-1] == verb_vect[i])
+         return "OK!";
+      else return "Not OK!";
+      }
+    }
   }
+  return Verb(d);
 }
 
 string Verb(string sentence)
 {
-  string left = words[words.size()-1];
   string d = sentence;
-  if(d == "rules"||d == "fly"||d == "swim"&& left == "birds")
+  for(int i = 0; i<verb_vect.size(); ++i)
   {
-    return d;
-  }else{
-    return Noun(d);
+    if(d == verb_vect[i])
+    {
+      for(int i = 0; i<noun_vect.size(); ++i)
+      {
+      if(words[words.size()-1] == noun_vect[i])
+         return "OK!";
+      else return "Not OK!";
+      }
+    }
   }
+  return Noun(d);
 }
 
 string Noun(string sentence)
 {
   string d = sentence;
-  if(d == "birds"||d == "fish"||d == "C++" )
+  for(int i = 0; i<noun_vect.size(); ++i)
   {
-  if(words[words.size()-1] == "the")
-      return d;
-  else return "Not OK!";
-  }else{
-    return Article(d);
+    if(d == noun_vect[i])
+    {
+      if(words[words.size()-1] == "the")
+         return "OK!";
+      else return "Not OK!";
+    }
   }
+  return Article(d);
 }
 
 string Article(string sentence)
@@ -107,7 +141,7 @@ string Article(string sentence)
   string d = sentence;
   if(d == "the")
   {
-    return d;
+    return "OK!";
   }else{
     return "Not OK!";
   }
@@ -121,14 +155,15 @@ string Article(string sentence)
  *    "and"
  *    "or"
  *    "but"
+ * Verb:
+ *    "rules"
+ *    "fly"
+ *    "swim"
  * Noun:
  *    "birds"
  *    "fish"
  *    "C++"
  * Article:
  *    "the"
- * Verb:
- *    "rules"
- *    "fly"
- *    "swim"
  */
+
