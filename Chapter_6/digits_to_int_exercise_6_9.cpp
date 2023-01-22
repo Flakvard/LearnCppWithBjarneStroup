@@ -10,6 +10,7 @@ int main()
      '0', that is, '5'-'0' == 5.
   */
 
+ int thousand = 0;
  int hundred = 0;
  int tens = 0;
  int ones = 0;
@@ -18,11 +19,15 @@ int main()
  int UserDigits = 0;
  while(cin>>UserDigits)
  {
-   hundred = UserDigits / 100;
+   if(UserDigits>10000) error("Error: UserDigits >1000");
+   thousand = UserDigits / 1000;
+   hundred = (UserDigits / 100) % 10;
    tens = (UserDigits / 10) % 10;
    ones = (UserDigits % 10);
-   cout<<hundred<<'\n'; 
-   cout<<tens<<'\n'; 
-   cout<<ones<<'\n'; 
+   cout<<UserDigits<<" is: "<<'\n'; 
+   cout<<thousand<<" thousand"<<'\n'; 
+   cout<<hundred<<" hundred"<<'\n'; 
+   cout<<tens<<" tens"<<'\n'; 
+   cout<<ones<<" ones"<<'\n'; 
  }
 }
