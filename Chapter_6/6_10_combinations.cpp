@@ -36,19 +36,38 @@ double combinations(double permutation, double val);
 
 int main()
 {
-cout<<"Do you want to calculate Permutation or Combination?\n1 = Permutation\n2 = Combination\n";
-cin>>userinput>>password;
-if(userinput != 1||2) error("Please write 1 or 2");
+  while(true){
+  cout<<"Do you want to calculate Permutation or Combination?\n1 = Permutation\n2 = Combination\n";
+  cin>>userinput;
+  if(userinput != 1.0 && userinput != 2.0) error("Please write 1 or 2");
 
-if(userinput == 1) error("Please write 1 or 2");
-if(userinput == 2) 
-{
-  while(true)
+  if(userinput == 1){ //Permutation
+    while(cin){
+      userinput = 0;
+      password = 0;
+      cout<<"Please enter a combination and a password\n";
+      cin>>userinput>>password;
+      if(userinput=='q') break;
+      if(userinput<0||password<0) error("Numbers you typed are not positiv\n");
+      cout<<permutation(userinput, password);
+      cout<<"\nType q to exit\n";
+    }
+  }
+
+  if(userinput == 2){ //Combinations
+  while(cin){
+      userinput = 0;
+      password = 0;
+      cout<<"Please enter a number and a combination\n";
+      cin>>userinput>>password;
+      if(userinput=='q') break;
+      if(userinput<0||password<0) error("Numbers you typed are not positiv\n");
+      cout<<combinations(userinput, password);
+      cout<<"\nType q to exit\n";
+    }
+  }
 }
-cout<<permutation(userinput, password);
-
 }
-
 double permutation(double combinations, double password)
 {
 //P (a , b ) = a!/( a − b )!
