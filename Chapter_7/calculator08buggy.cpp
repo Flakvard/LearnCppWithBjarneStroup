@@ -21,6 +21,42 @@
 	Solution:
 	Added the comments
 
+	3. As you commented, you found errors 
+	Solution:
+	Removed all the errors and added better solutions to silly errors
+
+	4. Testing +  5. Do the testing and fix any bugs that you missed when you commented.
+	Solution:
+	Test and fix the bugs.
+
+	6.
+	Add a predefined name k meaning 1000
+	Soultion:
+	add new char operator 'k' and multiply left with 1000
+
+	7. Give the user a square root function sqrt(),
+	Soultion:
+	new variable name called sqrt and place in primary function
+	
+	8. Catch attempts to take the square root of a negative number and print
+	Solution:
+	Define inside tokenstream::get()
+
+	9. Allow the user to use pow(x,i) to mean “Multiply x with itself i times”
+	Solution:
+	Define inside primary function and check for ',' and then pow(double left, int d)
+	Added also the modulo '%'
+
+	10. Change the “declaration keyword” from let to #
+	Solution:
+	add a new switch case in Token::Token_stream for '#' and return Token(let);
+
+	11. Change the “quit keyword” from quit to exit.
+	Solution:
+	Add a if("quit"||"exit") so both can be used
+
+
+
 */
 
 #include "../std_lib_facilities.h"
@@ -41,7 +77,7 @@ public:
 	Token_stream() :full(0), buffer(0) { } // initialize token stream to be empty
 
 	Token get();
-	void unget(Token t) { buffer = t; full = true; } // unget the token inside token stream
+	void unget(Token t) { buffer = t; full = true; } // unget stores the token inside the buffer in token_stream again
 
 	void ignore(char);
 };
@@ -50,7 +86,10 @@ const char let = 'L'; // Char token for Let type = 'L'
 const char quit = 'Q'; // Char token for quit  = 'Q'
 const char print = ';'; // Char token for print = ';'
 const char number = '8'; // Char token for number type = '8'
-const char name = 'a'; // Char token for varibale_name = 'a'
+const char name = 'a'; // Char token for variable_name = 'a'
+const char thousand = 'k'; // Char token for thousand = 'k'
+const char sqrt_root = 's'; // Char token for sqrt() = 's'
+const char powerof = 'p'; // char token for pow() = 'p'
 
 Token Token_stream::get()
 {
@@ -67,6 +106,8 @@ Token Token_stream::get()
 	case '%':
 	case ';':
 	case '=':
+	case 'k': // added for thousands
+	case ',': // added for pow(val,iterator) function
 		return Token(ch); // return operation token
 	case '.':
 	case '0':
@@ -84,14 +125,18 @@ Token Token_stream::get()
 	cin >> val; // store input inside double val 
 	return Token(number, val); // return the token kind number and the value
 	}
+	case '#': // added for variable declaration
+		return Token(let);
 	default:
 		if (isalpha(ch)) { //if not specified in the switch statement go here
 			string s;
 			s += ch;
 			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s += ch; // get all string characters and append to string.
 			cin.unget(); // remove the input inside character stream
-			if (s == "let") return Token(let); // check string is let
-			if (s == "quit") return Token(quit); // check string is quit
+			if (s == "let" || s == "#") return Token(let); // check string is let
+			if (s == "quit" || s == "exit") return Token(quit); // check string is quit
+			if (s == "sqrt") return Token(sqrt_root); // check string is sqrt()
+			if (s == "pow") return Token(powerof); // check string is pow()
 			return Token(name, s); // check string is quit
 		}
 		error("Bad token");
@@ -231,6 +276,9 @@ double expression() // checks for + and - from term(), if nothing then the calcu
 		case '-':
 			left -= term();
 			break;
+		case 'k':
+			left *= 1000;
+			break;
 		default:
 			ts.unget(t);
 			return left;
@@ -253,6 +301,15 @@ double term() // checks for * and /, if nothing
 		left /= d;
 		break;
 		}
+		case '%':
+		{	
+		int d = narrow_cast<int>(primary()); // checks for divide by 0 aswell
+		if (d == 0) error("modulo % by zero");
+		int left_int = narrow_cast<int>(left);
+		left_int %= d;
+		left = left_int;
+		break;
+		}
 		default:
 			ts.unget(t);
 			return left;
@@ -260,19 +317,30 @@ double term() // checks for * and /, if nothing
 	}
 }
 
-double primary() // checks for '(' and ')' first and reruns everything. Then check plus, minus values and variable name values and returns the values
+double primary() // checks for '(' and ')' first and re-runs everything. Then check plus, minus values and variable name values and returns the values
 {
 	Token t = ts.get();
 	switch (t.kind) {
+	case powerof:
+	{
+		double left = expression();
+		int d = narrow_cast<int>(primary());
+		return pow(left, d);
+	}
+	case sqrt_root:
+	{
+		double d = primary();
+		if(d<0) error("Negative value for Square root ",d);
+		return sqrt(d);
+	}
 	case '(':
 	{
-	double d = expression();
-	t = ts.get();
-	if (t.kind != ')') error("'(' expected");
-	return d;
+		double d = expression();
+		t = ts.get(); // get next value in input stream
+		if (t.kind = ',') return d;
+		if (t.kind != ')') error("'(' expected");
+		return d;
 	}
-	case ')':
-	error("Cannot start it ')'");
 	case '+':
 		return primary();
 	case '-':
