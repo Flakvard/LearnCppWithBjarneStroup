@@ -5,9 +5,20 @@
 	Helpful comments removed.
 
 	We have inserted 3 bugs that the compiler will catch and 3 that it won't.
+
+	Solution:
+	1. No curly brackets in int main ()
+	2. Expression() function is declared twice
+	3. Declaring functions: Expression(), Term() and Primary()
+	4. The order of functions was not correct.
+	5. Token stream did not append string s
+	6. Token strem returned a char and string, but initialization not defined Token Struct  
+
+	Now it compiles, the variable function "Let" works and quit function works aswell. 
+
 */
 
-#include "std_lib_facilities.h"
+#include "../std_lib_facilities.h"
 
 struct Token {
 	char kind;
@@ -15,6 +26,7 @@ struct Token {
 	string name;
 	Token(char ch) :kind(ch), value(0) { }
 	Token(char ch, double val) :kind(ch), value(val) { }
+	Token(char ch, string val) :kind(ch), name(val) { }
 };
 
 class Token_stream {
@@ -71,10 +83,10 @@ Token Token_stream::get()
 		if (isalpha(ch)) {
 			string s;
 			s += ch;
-			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s = ch;
+			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s += ch;
 			cin.unget();
 			if (s == "let") return Token(let);
-			if (s == "quit") return Token(name);
+			if (s == "quit") return Token(quit);
 			return Token(name, s);
 		}
 		error("Bad token");
@@ -129,67 +141,10 @@ bool is_declared(string s)
 Token_stream ts;
 
 double expression();
+double term();
+double primary();
 
-double primary()
-{
-	Token t = ts.get();
-	switch (t.kind) {
-	case '(':
-	{	double d = expression();
-	t = ts.get();
-	if (t.kind != ')') error("'(' expected");
-	}
-	case '-':
-		return -primary();
-	case number:
-		return t.value;
-	case name:
-		return get_value(t.name);
-	default:
-		error("primary expected");
-	}
-}
 
-double term()
-{
-	double left = primary();
-	while (true) {
-		Token t = ts.get();
-		switch (t.kind) {
-		case '*':
-			left *= primary();
-			break;
-		case '/':
-		{	double d = primary();
-		if (d == 0) error("divide by zero");
-		left /= d;
-		break;
-		}
-		default:
-			ts.unget(t);
-			return left;
-		}
-	}
-}
-
-double expression()
-{
-	double left = term();
-	while (true) {
-		Token t = ts.get();
-		switch (t.kind) {
-		case '+':
-			left += term();
-			break;
-		case '-':
-			left -= term();
-			break;
-		default:
-			ts.unget(t);
-			return left;
-		}
-	}
-}
 
 double declaration()
 {
@@ -230,7 +185,7 @@ void calculate()
 		cout << prompt;
 		Token t = ts.get();
 		while (t.kind == print) t = ts.get();
-		if (t.kind == quit) return;
+		if (t.kind == quit) break;
 		ts.unget(t);
 		cout << result << statement() << endl;
 	}
@@ -240,21 +195,83 @@ void calculate()
 	}
 }
 
-int main()
+int main(){
+    try {
+    	calculate();
+    	return 0;
+    }
+    catch (exception& e) {
+    	cerr << "exception: " << e.what() << endl;
+    	char c;
+    	while (cin >> c && c != ';');
+    	return 1;
+    }
+    catch (...) {
+    	cerr << "exception\n";
+    	char c;
+    	while (cin >> c && c != ';');
+    	return 2;
+    }
+}
 
-try {
-	calculate();
-	return 0;
+double expression()
+{
+	double left = term();
+	while (true) {
+		Token t = ts.get();
+		switch (t.kind) {
+		case '+':
+			left += term();
+			break;
+		case '-':
+			left -= term();
+			break;
+		default:
+			ts.unget(t);
+			return left;
+		}
+	}
 }
-catch (exception& e) {
-	cerr << "exception: " << e.what() << endl;
-	char c;
-	while (cin >> c && c != ';');
-	return 1;
+
+double term()
+{
+	double left = primary();
+	while (true) {
+		Token t = ts.get();
+		switch (t.kind) {
+		case '*':
+			left *= primary();
+			break;
+		case '/':
+		{	double d = primary();
+		if (d == 0) error("divide by zero");
+		left /= d;
+		break;
+		}
+		default:
+			ts.unget(t);
+			return left;
+		}
+	}
 }
-catch (...) {
-	cerr << "exception\n";
-	char c;
-	while (cin >> c && c != ';');
-	return 2;
+
+double primary()
+{
+	Token t = ts.get();
+	switch (t.kind) {
+	case '(':
+	{
+	double d = expression();
+	t = ts.get();
+	if (t.kind != ')') error("'(' expected");
+	}
+	case '-':
+		return -primary();
+	case number:
+		return t.value;
+	case name:
+		return get_value(t.name);
+	default:
+		error("primary expected");
+	}
 }
