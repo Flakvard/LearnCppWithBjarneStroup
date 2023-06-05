@@ -7,8 +7,8 @@ I have chosen VIM as my primary IDE for this and the [my customization are here]
 - [x] [Chapter 3](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_3) the exercises and drills were okey. I think some of them were very fast to complete, but it was only because of the help of past experience with other programming languages. Alot of different statements like ifs and switchs and loops like while and for. The thing that was most challanging was all the new words to remember and to understand. 
 - [x] [Chapter 4](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_4) the exercises and drills were all about vectors/arrays in c++ and using for- and while-loops to compute arguments into results. It was challenging and fulfilling to complete all 21 of them. 
 - [x] [Chapter 5](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_5) the exercises had error handling and catch errors. A game of Bulls and Cow was also quite challanging to write. I think reading the chapter was more interesting than the exercises this time.
-- [ ] Chapter 6 'Loading...'
-- [ ] Chapter 7
+- [x] [Chapter 6](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_6) I had a long pause from working with C++. Especially from universtity and starting a family. 150 LeetCode problems got me going again. These exercies in chapter 6 were good, but not so fun and was also a reason I paused. 
+- [ ] [Chapter 7](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_7) 'Loading...'
 - [ ] Chapter 8
 - [ ] Chapter 9
 - [ ] Chapter 10
