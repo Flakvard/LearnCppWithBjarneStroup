@@ -182,13 +182,30 @@ double primary(); // declare primary function
 
 double declaration() // check if variable is declared correct or declared twice. Then push token(variable_name + val) and return val 
 {
+	//Check if name is defined
 	Token t = ts.get();
 	if (t.kind != 'a') error("name expected in declaration"); // throws exception
+
+	// Check if name already declared
 	string name = t.name;
-	if (is_declared(name)) error(name, " declared twice");  // throws exception 
-	Token t2 = ts.get();
+	// if (is_declared(name)) error(name, " declared twice");  // throws exception 
+	if (is_declared(name)){
+		Token t2 = ts.get(); 
+		if (t2.kind != '=') error("= missing in declaration of ", name); // throws exception
+		double d = expression();
+		set_value(t.name, d);
+		return d;
+	}
+
+	// Check if '=' is the next character in the istream
+	// if so initialize '=' to t2 NOT t
+	Token t2 = ts.get(); 
 	if (t2.kind != '=') error("= missing in declaration of ", name); // throws exception
+
+	// Get the value (or value from the calculation) after '='
 	double d = expression();
+
+	// Push to vector<Variable> names
 	names.push_back(Variable(name, d));
 	return d;
 }
@@ -217,7 +234,7 @@ void calculate() // This is the 'main' program where the calculator starts and e
 {
 	while (true) try { //forever loop
 		cout << prompt; //start with a '>' prompt
-		Token t = ts.get(); // listen for user input
+		Token t = ts.get(); // listen for user input (CALC STARTS HERE)
 		while (t.kind == print) t = ts.get(); // loops until token is print
 		if (t.kind == quit) break; // if token quit then break or quit the program
 		ts.unget(t); // restart the token stream and token
