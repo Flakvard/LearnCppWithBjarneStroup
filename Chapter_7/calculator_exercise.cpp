@@ -5,7 +5,8 @@
 	variable after you introduce it using let. Discuss why that can be useful 
 	and how it can be a source of problems.
 
-	3. Provide named constants that you really can’t change the value of. Hint: 
+	3. Provide named constants that you really can’t change the value of.
+	Hint: 
 	You have to add a member to Variable that distinguishes between constants and variables and check for it in set_value(). If you want to let 
 	the user define constants (rather than just having pi and e defined as 
 	constants), you’ll have to add a notation to let the user express that, for 
@@ -67,6 +68,7 @@ public:
 };
 
 const char let = 'L'; // Char token for Let type = 'L'
+const char constant = 'C'; // Char token for constant type = 'C'
 const char quit = 'Q'; // Char token for quit  = 'Q'
 const char print = ';'; // Char token for print = ';'
 const char number = '8'; // Char token for number type = '8'
@@ -118,6 +120,7 @@ Token Token_stream::get()
 			while (cin.get(ch) && (isalpha(ch) || isdigit(ch)|| ch == '_')) s += ch; // get all string characters and append to string.
 			cin.unget(); // remove the input inside character stream
 			if (s == "let" || s == "#") return Token(let); // check string is let
+			if (s == "const") return Token(constant); // check string is let
 			if (s == "quit" || s == "exit") return Token(quit); // check string is quit
 			if (s == "sqrt") return Token(sqrt_root); // check string is sqrt()
 			if (s == "pow") return Token(powerof); // check string is pow()
@@ -141,9 +144,10 @@ void Token_stream::ignore(char c)
 }
 
 struct Variable {// variable struct for calculator. string name and double value 
+	bool constant;
 	string name;
 	double value;
-	Variable(string n, double v) :name(n), value(v) { } // constructor for type Variable
+	Variable(string n, double v, bool constant) :name(n), value(v), constant(constant) { } // constructor for type Variable
 };
 
 vector<Variable> names; // vector of type variables for the 'let' function Token(string name, double value)
@@ -155,12 +159,15 @@ double get_value(string s) // get double value from variable name example 'let n
 	error("get: undefined name ", s); // throw exception 
 }
 
-void set_value(string s, double d) // set variable name and the double value 'let name = 1;' 
+void set_value(string s, double d) // assaign new variable value 'let name = 0;' to 'let name = 1;' 
 {
+	bool constant = true; // do not change value inside const variables
 	for (int i = 0; i <= names.size(); ++i)
-		if (names[i].name == s) {
+		if (names[i].name == s && names[i].constant != constant) {
 			names[i].value = d;
 			return;
+		}else{
+			error("Cannot change value on const type variable ", s);
 		}
 	error("set: undefined name ", s); // throw exception
 }
@@ -180,15 +187,14 @@ double primary(); // declare primary function
 
 
 
-double declaration() // check if variable is declared correct or declared twice. Then push token(variable_name + val) and return val 
+double declaration(bool kind) // check if variable is declared correct or declared twice. Then push token(variable_name + val) and return val 
 {
 	//Check if name is defined
 	Token t = ts.get();
 	if (t.kind != 'a') error("name expected in declaration"); // throws exception
 
 	// Check if name already declared
-	string name = t.name;
-	// if (is_declared(name)) error(name, " declared twice");  // throws exception 
+	string name = t.name; // initiate the token name to name
 	if (is_declared(name)){
 		Token t2 = ts.get(); 
 		if (t2.kind != '=') error("= missing in declaration of ", name); // throws exception
@@ -205,8 +211,11 @@ double declaration() // check if variable is declared correct or declared twice.
 	// Get the value (or value from the calculation) after '='
 	double d = expression();
 
-	// Push to vector<Variable> names
-	names.push_back(Variable(name, d));
+	// Check fo kind of variable and push to vector<Variable> names
+	if(kind == false)
+		names.push_back(Variable(name, d, false));
+	if(kind == true)
+		names.push_back(Variable(name, d, true));
 	return d;
 }
 
@@ -215,7 +224,9 @@ double statement() // returns value from either expression or declaration to pri
 	Token t = ts.get();
 	switch (t.kind) {
 	case let:
-		return declaration();  // variable names
+		return declaration(false);  // variable names
+	case constant:
+		return declaration(true);  // constant variable names
 	default:
 		ts.unget(t);
 		return expression(); // last grammer in the primary() -> term() -> expression() hieraki
@@ -354,3 +365,44 @@ double primary() // checks for '(' and ')' first and re-runs everything. Then ch
 		error("primary expected");
 	}
 }
+
+
+/*
+	Simple calculator
+	This program implements a basic expression calculator.
+	Input from cin; output to cout.
+	The grammar for input is:
+
+	Calculation:
+		Statement:
+        Print
+        Quit
+		Calculation Statement
+	Statement:
+		Declaration
+		Expression
+	Print:
+		';'
+	Quit:
+		'q'
+	Declaration:
+		"let" = Name '=' Expression
+	Expression:
+		Term
+		Expression + Term
+		Expression – Term
+	Term:
+		Primary
+		Term * Primary
+		Term / Primary
+		Term % Primary
+	Primary:
+		Number
+		( Expression )
+		– Primary
+		+ Primary
+	Number:
+		floating-point-literal
+	
+	Input comes from cin through the Token_stream called ts.
+*/
