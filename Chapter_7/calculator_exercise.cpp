@@ -114,10 +114,10 @@ Token Token_stream::get()
 	case '#': // added for variable declaration
 		return Token(let);
 	default:
-		if (isalpha(ch)) { //if not specified in the switch statement go here
+		if (isalpha(ch)||ch == '_') { //if not specified in the switch statement go here
 			string s;
 			s += ch;
-			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s += ch; // get all string characters and append to string.
+			while (cin.get(ch) && (isalpha(ch) || isdigit(ch)|| ch == '_')) s += ch; // get all string characters and append to string.
 			cin.unget(); // remove the input inside character stream
 			if (s == "let" || s == "#") return Token(let); // check string is let
 			if (s == "quit" || s == "exit") return Token(quit); // check string is quit
