@@ -4,7 +4,9 @@
         "istream": "cpp",
         "stdexcept": "cpp",
         "cmath": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "system_error": "cpp",
+        "xlocale": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
