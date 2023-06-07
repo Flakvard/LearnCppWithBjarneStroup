@@ -51,9 +51,9 @@ struct Token { // structure the Token so it can hold Numbers, variables and oper
 	char kind;
 	double value;
 	string name;
-	Token(char ch) :kind(ch), value(0) { } // initilaze operations 
-	Token(char ch, double val) :kind(ch), value(val) { } // initilaze numbers 
-	Token(char ch, string val) :kind(ch), name(val) { }// initilaze variables 
+	Token(char ch) :kind(ch), value(0) { }  // constructor for type Token kind = operations - default initialization for value is 0 
+	Token(char ch, double val) :kind(ch), value(val) { }  // constructor for type Token kind = numbers 
+	Token(char ch, string val) :kind(ch), name(val) { }  // constructor for type Token kind = variables 
 };
 
 class Token_stream { //Token stream where all tokens go thorugh
@@ -62,7 +62,7 @@ class Token_stream { //Token stream where all tokens go thorugh
 public:
 	Token_stream() :full(0), buffer(0) { } // initialize token stream to be empty
 
-	Token get();
+	Token get(); // Declare function get() of type Token
 	void unget(Token t) { buffer = t; full = true; } // unget stores the token inside the buffer in token_stream again
 
 	void ignore(char);
@@ -145,7 +145,7 @@ void Token_stream::ignore(char c)
 struct Variable {// variable struct for calculator. string name and double value 
 	string name;
 	double value;
-	Variable(string n, double v) :name(n), value(v) { }
+	Variable(string n, double v) :name(n), value(v) { } // constructor for type Variable
 };
 
 vector<Variable> names; // vector of type variables for the 'let' function Token(string name, double value)
