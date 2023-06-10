@@ -16,8 +16,8 @@
 
 	7. Change the q and h commands to be quit and help, respectively.
 
-	8. The grammar in §7.6.4 is incomplete (we did warn you against overreliance on comments); it does not define sequences of statements, such 
-	as 4+4; 5–6;, and it does not incorporate the grammar changes outlined 
+	8. The grammar in §7.6.4 is incomplete (we did warn you against overreliance on comments); 
+    it does not define sequences of statements, such as 4+4; 5–6;, and it does not incorporate the grammar changes outlined 
 	in §7.8. Fix that grammar. Also add whatever you feel is needed to that 
 	comment as the first comment of the calculator program and its overall comment.
 
@@ -40,7 +40,6 @@ struct Token { // structure the Token so it can hold Numbers, variables and oper
 	Token(char ch) :kind(ch), value(0) { }  // constructor for type Token kind = operations - default initialization for value is 0 
 	Token(char ch, double val) :kind(ch), value(val) { }  // constructor for type Token kind = numbers 
 	Token(char ch, string val) :kind(ch), name(val) { }  // constructor for type Token kind = variables 
-    void print();
 };
 
 class Token_stream { //Token stream where all tokens go thorugh
@@ -72,6 +71,7 @@ Token Token_stream::get()
 	if (full) { full = false; return buffer; } // Checks Token_stream is in use and buffer is full
 	char ch; // char for token type
 	cin.get(ch); // character input into char
+
     while(isspace(ch)){ // checks space ' ', '\f', '\n', '\r', '\t','\v'
         if(ch == '\n'){
             return Token(print); //print results
@@ -115,6 +115,7 @@ Token Token_stream::get()
 			s += ch;
 			while (cin.get(ch) && (isalpha(ch) || isdigit(ch)|| ch == '_')) s += ch; // get all string characters and append to string.
 			cin.unget(); // remove the input inside character stream
+            if (s == "help"||s == "HELP") cout<<"Calculator\nTo exit write 'quit' or 'exit'\nAll the following commands are allowed:\n+,-,*,/,%,sqrt(x),pow(x,y), thousands 'k'\nVariables:\nlet num = 10\nOR\n# num = 10\nconst num 10\nCannot assaign new value to consts\nTo execute a expression you can also write ';' in the end";
 			if (s == "let" || s == "#") return Token(let); // check string is let
 			if (s == "const") return Token(constant); // check string is let
 			if (s == "quit" || s == "exit") return Token(quit); // check string is quit

@@ -8,7 +8,10 @@
         "system_error": "cpp",
         "xlocale": "cpp",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "locale": "cpp",
+        "cctype": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
