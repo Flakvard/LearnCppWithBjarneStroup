@@ -40,6 +40,7 @@ struct Token { // structure the Token so it can hold Numbers, variables and oper
 	Token(char ch) :kind(ch), value(0) { }  // constructor for type Token kind = operations - default initialization for value is 0 
 	Token(char ch, double val) :kind(ch), value(val) { }  // constructor for type Token kind = numbers 
 	Token(char ch, string val) :kind(ch), name(val) { }  // constructor for type Token kind = variables 
+    void print();
 };
 
 class Token_stream { //Token stream where all tokens go thorugh
@@ -54,7 +55,7 @@ public:
 	void ignore(char);
 };
 
-
+// all the token kinds options
 const char let = 'L'; // Char token for Let type = 'L'
 const char constant = 'C'; // Char token for constant type = 'C'
 const char quit = 'Q'; // Char token for quit  = 'Q'
@@ -64,12 +65,19 @@ const char name = 'a'; // Char token for variable_name = 'a'
 const char thousand = 'k'; // Char token for thousand = 'k'
 const char sqrt_root = 's'; // Char token for sqrt() = 's'
 const char powerof = 'p'; // char token for pow() = 'p'
+const char help = 'h'; // returns the token help print 
 
 Token Token_stream::get()
 {
 	if (full) { full = false; return buffer; } // Checks Token_stream is in use and buffer is full
 	char ch; // char for token type
-	cin >> ch; // character input into char
+	cin.get(ch); // character input into char
+    while(isspace(ch)){ // checks space ' ', '\f', '\n', '\r', '\t','\v'
+        if(ch == '\n'){
+            return Token(print); //print results
+        }
+        cin.get(ch);
+    }
 	switch (ch) { // check character
 	case '(':
 	case ')':
@@ -249,13 +257,15 @@ const string result = "= ";
 
 void calculate() // This is the 'main' program where the calculator starts and ends. 
 {
-	while (true) try { //forever loop
+	while (true) try { // Try scope inside forever loop
 		cout << prompt; //start with a '>' prompt
 		Token t = ts.get(); // listen for user input (CALC STARTS HERE)
-		while (t.kind == print) t = ts.get(); // loops until token is print
+		while (t.kind == print){
+            t = ts.get(); // gets the calculated value of the whole express 
+        }
 		if (t.kind == quit) break; // if token quit then break or quit the program
-		ts.unget(t); // restart the token stream and token
-		cout << result << statement() << endl; // print the expression or declaration from statement
+		ts.unget(t); // place back the token inside token stream
+		cout << result << statement() << endl; // print the expression or declaration from statement + flushes the stream
 	}
 	catch (runtime_error& e) { // catch any runtime errors from calculation program and continue the program
 		cerr << e.what() << endl;
@@ -304,7 +314,7 @@ double expression() // checks for + and - from term(), if nothing then the calcu
 	}
 }
 
-double term() // checks for * and /, if nothing 
+double term() // checks for *, /, and % if nothing 
 {
 	double left = primary();
 	while (true) {
@@ -404,6 +414,8 @@ double primary() // checks for '(' and ')' first and re-runs everything. Then ch
 		Term % Primary
 	Primary:
 		Number
+        Sqare_root
+        power of (x,y)
 		( Expression )
 		– Primary
 		+ Primary
