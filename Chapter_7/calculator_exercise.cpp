@@ -22,6 +22,11 @@
 	comment as the first comment of the calculator program and its overall comment.
 
 	9. Suggest three improvements (not mentioned in this chapter) to the calculator. Implement one of them.
+    - Convert Celsius to Fahrenheit
+    - IMPLEMENT factorial ! // 4! = 4*3*2*1
+    - Combinations(size, selected)
+		works eks.: (20!)/((4!)*((20-4)!)) = 4845  
+    - Permutation(size, selected)
 
 	10. Modify the calculator to operate on ints (only); give errors for overflow 
 	and underflow. Hint: Use narrow_cast (§7.5).
@@ -64,6 +69,7 @@ const char name = 'a'; // Char token for variable_name = 'a'
 const char thousand = 'k'; // Char token for thousand = 'k'
 const char sqrt_root = 's'; // Char token for sqrt() = 's'
 const char powerof = 'p'; // char token for pow() = 'p'
+const char factorial = '!'; // char token for factorial()
 const char help = 'h'; // returns the token help print 
 
 Token Token_stream::get()
@@ -72,12 +78,14 @@ Token Token_stream::get()
 	char ch; // char for token type
 	cin.get(ch); // character input into char
 
+
     while(isspace(ch)){ // checks space ' ', '\f', '\n', '\r', '\t','\v'
         if(ch == '\n'){
             return Token(print); //print results
         }
         cin.get(ch);
     }
+
 	switch (ch) { // check character
 	case '(':
 	case ')':
@@ -86,10 +94,11 @@ Token Token_stream::get()
 	case '*':
 	case '/':
 	case '%':
-	case ';':
+	//case ';': //Print the value
 	case '=':
 	case 'k': // added for thousands
 	case ',': // added for pow(val,iterator) function
+	case '!':
 		return Token(ch); // return operation token
 	case '.':
 	case '0':
@@ -102,10 +111,11 @@ Token Token_stream::get()
 	case '7':
 	case '8':
 	case '9':
-	{	cin.unget(); // Decrease the current location in the stream by one character, making the last character available to be extracted by input operations.
-	double val; 
-	cin >> val; // store input inside double val 
-	return Token(number, val); // return the token kind number and the value
+	{	
+		cin.unget(); // Decrease the current location in the stream by one character, making the last character available to be extracted by input operations.
+		double val; 
+		cin >> val; // store input inside double val 
+		return Token(number, val); // return the token kind number and the value
 	}
 	case '#': // added for variable declaration
 		return Token(let);
@@ -199,7 +209,7 @@ Token_stream ts; // initiate the token_stream ts
 double expression(); // declare expression function
 double term(); // declare term function
 double primary(); // declare primary function
-
+double factorialofNum(double left); // delcae factorial funaction
 
 
 double Symbol_table::declaration(bool kind) // check if variable is declared correct or declared twice. Then push token(variable_name + val) and return val 
@@ -325,7 +335,8 @@ double term() // checks for *, /, and % if nothing
 			left *= primary();
 			break;
 		case '/':
-		{	double d = primary(); // checks for divide by 0 aswell
+		{	
+		double d = primary(); // checks for divide by 0 aswell
 		if (d == 0) error("divide by zero");
 		left /= d;
 		break;
@@ -338,6 +349,12 @@ double term() // checks for *, /, and % if nothing
 		left_int %= d;
 		left = left_int;
 		break;
+		}
+		case factorial:
+		{
+			double n = left;
+			if(n < 0) error("Cannot do factorial of num ", n);
+			return left = factorialofNum(n);
 		}
 		default:
 			ts.unget(t);
@@ -383,6 +400,9 @@ double primary() // checks for '(' and ')' first and re-runs everything. Then ch
 	}
 }
 
+double factorialofNum(double left){
+	return (left == 0 || left == 1) ? 1 : factorialofNum(left-1)*left;
+}
 
 /*
 	Simple calculator
