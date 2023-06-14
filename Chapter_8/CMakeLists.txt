@@ -1,1 +1,1 @@
-add_library(Chap8 use.cpp)
+add_executable(Chap8 use.cpp)
