@@ -17,8 +17,7 @@ int main(int argc, char* argv[]){
 
     double dx = 7.7;
     double dy = 9.9;
-// Swap const reference
-/*
+// Swap const reference - everything run, but nothing got changed as expected
     swap_cr(x,y);
     swap_cr(7,9);
     swap_cr(cx,cy);
@@ -26,17 +25,17 @@ int main(int argc, char* argv[]){
     swap_cr(dx,dy);
     swap_cr(7.7,9.9);
 
-*/
-// Swap value
+// Swap value - eveything worked as expected
     swap_v(x,y);
     swap_v(7,9);
     swap_v(cx,cy);
     swap_v(7.7,9.9);
     swap_v(dx,dy);
     swap_v(7.7,9.9);
+
 // ONLY FUNCTIONS that did not compile
 // Swap reference
-    //swap_r(x,y);
+    swap_r(x,y); // only one that worked
     //swap_r(7,9); // There is no lvalue reference to the rvalue, because there is no variable to reference to
     //swap_r(cx,cy); // Cannot change the value, because it is a const variable
     //swap_r(7.7,9.9); // First wrong type then there is no lvalue reference to the rvalue, because there is no variable to reference to
