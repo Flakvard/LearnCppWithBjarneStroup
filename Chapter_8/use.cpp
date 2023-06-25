@@ -17,24 +17,24 @@ int main(int argc, char* argv[]){
 // Swap const reference
     int x = 7;
     int y =9;
-    swap_cr(x,y);
-    swap_cr(7,9);
+    std::cout<<swap_cr(x,y)<<'\n';
+    std::cout<<swap_cr(7,9)<<'\n';
     const int cx = 7;
     const int cy = 9;
-    swap_cr(cx,cy);
-    swap_cr(7.7,9.9);
+    std::cout<<swap_cr(cx,cy)<<'\n';
+    std::cout<<swap_cr(7.7,9.9)<<'\n';
     double dx = 7.7;
     double dy = 9.9;
-    swap_cr(dx,dy);
-    swap_cr(7.7,9.9);
+    std::cout<<swap_cr(dx,dy)<<'\n';
+    std::cout<<swap_cr(7.7,9.9)<<'\n';
 
 // Swap value
-    swap_v(x,y);
-    swap_v(7,9);
-    swap_v(cx,cy);
-    swap_v(7.7,9.9);
-    swap_v(dx,dy);
-    swap_v(7.7,9.9);
+    std::cout<<swap_v(x,y)<<'\n';
+    std::cout<<swap_v(7,9)<<'\n';
+    std::cout<<swap_v(cx,cy)<<'\n';
+    std::cout<<swap_v(7.7,9.9)<<'\n';
+    std::cout<<swap_v(dx,dy)<<'\n';
+    std::cout<<swap_v(7.7,9.9)<<'\n';
 // ONLY FUNCTIONS that did not compile
 // Swap reference
     //swap_r(x,y);
