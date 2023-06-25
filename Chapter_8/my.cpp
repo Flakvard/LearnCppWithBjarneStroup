@@ -13,22 +13,28 @@ void print_foo(){
     }
 
 int swap_v(int a, int b){ 
+    std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
     int temp; 
     temp = a;
     a=b; 
     b=temp; 
+    std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
     return a&&b;
     }
 void swap_r(int& a, int& b){
+    std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
     int temp; 
     temp = a;
     a=b; 
     b=temp; 
+    std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
     }
 
 void swap_cr(const int& a, const int& b){ 
+    std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
     int temp; 
     temp = a;
     //a=b; // Does not work to change a const variable
     //b=temp; // Does not work to change a const variable
+    std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
     }

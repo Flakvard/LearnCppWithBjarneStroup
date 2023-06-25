@@ -14,20 +14,24 @@ int main(int argc, char* argv[]){
     swap_v(a, b);
     std::cout<<"a= "<<a<<" and b= "<<b<<'\n';
 
-// Swap const reference
     int x = 7;
     int y =9;
-    std::cout<<swap_cr(x,y)<<'\n';
-    std::cout<<swap_cr(7,9)<<'\n';
+
     const int cx = 7;
     const int cy = 9;
-    std::cout<<swap_cr(cx,cy)<<'\n';
-    std::cout<<swap_cr(7.7,9.9)<<'\n';
+
     double dx = 7.7;
     double dy = 9.9;
+// Swap const reference
+/*
+    std::cout<<swap_cr(x,y)<<'\n';
+    std::cout<<swap_cr(7,9)<<'\n';
+    std::cout<<swap_cr(cx,cy)<<'\n';
+    std::cout<<swap_cr(7.7,9.9)<<'\n';
     std::cout<<swap_cr(dx,dy)<<'\n';
     std::cout<<swap_cr(7.7,9.9)<<'\n';
 
+*/
 // Swap value
     std::cout<<swap_v(x,y)<<'\n';
     std::cout<<swap_v(7,9)<<'\n';
