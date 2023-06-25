@@ -8,11 +8,6 @@ int main(int argc, char* argv[]){
 
     print_foo();
     print(5);
-    int a = 5;
-    int b = 8;
-    std::cout<<"a= "<<a<<" and b= "<<b<<'\n';
-    swap_v(a, b);
-    std::cout<<"a= "<<a<<" and b= "<<b<<'\n';
 
     int x = 7;
     int y =9;
@@ -24,21 +19,21 @@ int main(int argc, char* argv[]){
     double dy = 9.9;
 // Swap const reference
 /*
-    std::cout<<swap_cr(x,y)<<'\n';
-    std::cout<<swap_cr(7,9)<<'\n';
-    std::cout<<swap_cr(cx,cy)<<'\n';
-    std::cout<<swap_cr(7.7,9.9)<<'\n';
-    std::cout<<swap_cr(dx,dy)<<'\n';
-    std::cout<<swap_cr(7.7,9.9)<<'\n';
+    swap_cr(x,y);
+    swap_cr(7,9);
+    swap_cr(cx,cy);
+    swap_cr(7.7,9.9);
+    swap_cr(dx,dy);
+    swap_cr(7.7,9.9);
 
 */
 // Swap value
-    std::cout<<swap_v(x,y)<<'\n';
-    std::cout<<swap_v(7,9)<<'\n';
-    std::cout<<swap_v(cx,cy)<<'\n';
-    std::cout<<swap_v(7.7,9.9)<<'\n';
-    std::cout<<swap_v(dx,dy)<<'\n';
-    std::cout<<swap_v(7.7,9.9)<<'\n';
+    swap_v(x,y);
+    swap_v(7,9);
+    swap_v(cx,cy);
+    swap_v(7.7,9.9);
+    swap_v(dx,dy);
+    swap_v(7.7,9.9);
 // ONLY FUNCTIONS that did not compile
 // Swap reference
     //swap_r(x,y);
