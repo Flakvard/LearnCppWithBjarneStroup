@@ -8,7 +8,7 @@
 
 */
 
-#include "../std_lib_facilities.h"
+#include "../../std_lib_facilities.h"
 
 struct Token { // structure the Token so it can hold Numbers, variables and operations
 	char kind;
@@ -106,6 +106,7 @@ Token Token_stream::get()
 			return Token(name, s); // check string is quit
 		}
 		error("Bad token");
+		return 0;
 	}
 }
 
@@ -126,40 +127,33 @@ struct Variable {// variable struct for calculator. string name and double value
 	bool constant;
 	string name;
 	double value;
-	Variable(string n, double v, bool constant) :name(n), value(v), constant(constant) { } // constructor for type Variable
+	Variable(bool constant, string n, double v) :constant(constant), name(n), value(v) { } // constructor for type Variable
 };
 
 class Symbol_table{
-/*
-	4. The get_value(), set_value(), is_declared(), and define_name() functions 
-	all operate on the variable var_table. Define a class called Symbol_table
-	with a member var_table of type vector<Variable> and member functions
-	get(), set(), is_declared(), and declare(). Rewrite the calculator to use a 
-	variable of type Symbol_table.
-*/
-
     public:
-    vector<Variable> names; // vector of type variables for the 'let' function Token(string name, double value)
-    Symbol_table() : names(){};
+		vector<Variable> names; // vector of type variables for the 'let' function Token(string name, double value)
+		Symbol_table() : names(){};
 
-    double get_value(string s); // get double value from variable name example 'let name = 1;'
-    void set_value(string s, double d); // assaign new variable value 'let name = 0;' to 'let name = 1;' 
-    bool is_declared(string s); // loops through all variables names and checks if already declared
-    double declaration(bool kind); // check if variable is declared correct or declared twice. Then push token(variable_name + val) and return val 
+		double get_value(string s); // get double value from variable name example 'let name = 1;'
+		void set_value(string s, double d); // assaign new variable value 'let name = 0;' to 'let name = 1;' 
+		bool is_declared(string s); // loops through all variables names and checks if already declared
+		double declaration(bool kind); // check if variable is declared correct or declared twice. Then push token(variable_name + val) and return val 
 };
 Symbol_table names; // vector of type variables for the 'let' function Token(string name, double value)
 
 double Symbol_table::get_value(string s) // get double value from variable name example 'let name = 1;'
 {
-	for (int i = 0; i < names.size(); ++i)
+	for (size_t i = 0; i < names.size(); ++i)
 		if (names[i].name == s) return names[i].value;
 	error("get: undefined name ", s); // throw exception 
+	return 0;
 }
 
 void Symbol_table::set_value(string s, double d) // assaign new variable value 'let name = 0;' to 'let name = 1;' 
 {
 	bool constant = true; // do not change value inside const variables
-	for (int i = 0; i <= names.size(); ++i)
+	for (size_t i = 0; i <= names.size(); ++i)
 		if (names[i].name == s && names[i].constant != constant) {
 			names[i].value = d;
 			return;
@@ -171,16 +165,16 @@ void Symbol_table::set_value(string s, double d) // assaign new variable value '
 
 bool Symbol_table::is_declared(string s) // loops through all variables names and checks if already declared
 {
-	for (int i = 0; i < names.size(); ++i)
+	for (size_t i = 0; i < names.size(); ++i)
 		if (names[i].name == s) return true;
 	return false;
 }
 
 Token_stream ts; // initiate the token_stream ts
 
-double expression(); // declare expression function
-double term(); // declare term function
-double primary(); // declare primary function
+double expression(Token_stream& ts); // declare expression function
+double term(Token_stream& ts); // declare term function
+double primary(Token_stream& ts); // declare primary function
 double factorialofNum(double left); // delcae factorial funaction
 
 
@@ -195,7 +189,7 @@ double Symbol_table::declaration(bool kind) // check if variable is declared cor
 	if (is_declared(name)){
 		Token t2 = ts.get(); 
 		if (t2.kind != '=') error("= missing in declaration of ", name); // throws exception
-		double d = expression();
+		double d = expression(ts);
 		set_value(t.name, d);
 		return d;
 	}
@@ -206,13 +200,13 @@ double Symbol_table::declaration(bool kind) // check if variable is declared cor
 	if (t2.kind != '=') error("= missing in declaration of ", name); // throws exception
 
 	// Get the value (or value from the calculation) after '='
-	double d = expression();
+	double d = expression(ts);
 
 	// Check fo kind of variable and push to vector<Variable> names
 	if(kind == false)
-		names.push_back(Variable(name, d, false));
+		names.push_back(Variable(false, name, d));
 	if(kind == true)
-		names.push_back(Variable(name, d, true));
+		names.push_back(Variable(true, name, d));
 	return d;
 }
 
@@ -226,7 +220,7 @@ double statement() // returns value from either expression or declaration to pri
 		return names.declaration(true);  // constant variable names
 	default:
 		ts.unget(t);
-		return expression(); // last grammer in the primary() -> term() -> expression() hieraki
+		return expression(ts); // last grammer in the primary() -> term() -> expression() hieraki
 	}
 }
 
@@ -275,17 +269,17 @@ int main(){
     }
 }
 
-double expression() // checks for + and - from term(), if nothing then the calculations is complete and return left value;
+double expression(Token_stream& ts) // checks for + and - from term(), if nothing then the calculations is complete and return left value;
 {
-	double left = term(); // gets value from term()
+	double left = term(ts); // gets value from term()
 	while (true) {
 		Token t = ts.get(); // gets the next value (right value) 
 		switch (t.kind) {
 		case '+':
-			left += term();
+			left += term(ts);
 			break;
 		case '-':
-			left -= term();
+			left -= term(ts);
 			break;
 		case 'k':
 			left *= 1000;
@@ -297,25 +291,25 @@ double expression() // checks for + and - from term(), if nothing then the calcu
 	}
 }
 
-double term() // checks for *, /, and % if nothing 
+double term(Token_stream& ts) // checks for *, /, and % if nothing 
 {
-	double left = primary();
+	double left = primary(ts);
 	while (true) {
 		Token t = ts.get();
 		switch (t.kind) {
 		case '*':
-			left *= primary();
+			left *= primary(ts);
 			break;
 		case '/':
 		{	
-		double d = primary(); // checks for divide by 0 aswell
+		double d = primary(ts); // checks for divide by 0 aswell
 		if (d == 0) error("divide by zero");
 		left /= d;
 		break;
 		}
 		case '%':
 		{	
-		int d = narrow_cast<int>(primary()); // checks for divide by 0 aswell
+		int d = narrow_cast<int>(primary(ts)); // checks for divide by 0 aswell
 		if (d == 0) error("modulo % by zero");
 		int left_int = narrow_cast<int>(left);
 		left_int %= d;
@@ -335,40 +329,41 @@ double term() // checks for *, /, and % if nothing
 	}
 }
 
-double primary() // checks for '(' and ')' first and re-runs everything. Then check plus, minus values and variable name values and returns the values
+double primary(Token_stream& ts) // checks for '(' and ')' first and re-runs everything. Then check plus, minus values and variable name values and returns the values
 {
 	Token t = ts.get();
 	switch (t.kind) {
 	case powerof:
 	{
-		double left = expression();
-		int d = narrow_cast<int>(primary());
+		double left = expression(ts);
+		int d = narrow_cast<int>(primary(ts));
 		return pow(left, d);
 	}
 	case sqrt_root:
 	{
-		double d = primary();
+		double d = primary(ts);
 		if(d<0) error("Negative value for Square root ",d);
 		return sqrt(d);
 	}
 	case '(':
 	{
-		double d = expression();
+		double d = expression(ts);
 		t = ts.get(); // get next value in input stream
-		if (t.kind = ',') return d;
+		if (t.kind == ',') return d;
 		if (t.kind != ')') error("'(' expected");
 		return d;
 	}
 	case '+':
-		return primary();
+		return primary(ts);
 	case '-':
-		return -primary();
+		return -primary(ts);
 	case number:
 		return t.value;
 	case name:
 		return names.get_value(t.name);
 	default:
 		error("primary expected");
+		return 0;
 	}
 }
 

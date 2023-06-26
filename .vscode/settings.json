@@ -11,7 +11,9 @@
         "ostream": "cpp",
         "locale": "cpp",
         "cctype": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "functional": "cpp",
+        "type_traits": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
