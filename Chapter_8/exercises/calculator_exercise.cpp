@@ -24,6 +24,7 @@ class Token_stream { //Token stream where all tokens go thorugh
 	Token buffer; //Token stored in the buffer inside Token_stream 
 public:
 	Token_stream() :full(0), buffer(0) { } // initialize token stream to be empty
+	Token_stream(istream&); // Construkter for input file stream reference
 
 	Token get(); // Declare function get() of type Token
 	void unget(Token t) { buffer = t; full = true; } // unget stores the token inside the buffer in token_stream again
