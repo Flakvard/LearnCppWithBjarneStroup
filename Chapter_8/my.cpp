@@ -1,16 +1,34 @@
 #include "./my.h"
 #include "../std_lib_facilities.h"
 
-
-void print(int n){
-    for(int i = 0; i < n; i++){
-        cout<<i<<'\n';
+namespace X{
+    int var = 0;
+    void print(int n){
+        for(int i = 0; i < n; i++){
+            cout<<i<<'\n';
+            }
         }
+}
+namespace Y{
+    int var = 0;
+    void print(int n){
+        for(int i = 0; i < n; i++){
+            cout<<i<<'\n';
+            }
+        }
+    void print_foo(){
+            cout<<"foo\n";
+        }
+} 
+
+namespace Z{
+    int var = 0;
+    void print(int n){
+        for(int i = 0; i < n; i++){
+            cout<<i<<'\n';
+            }
     }
-    
-void print_foo(){
-        cout<<"foo\n";
-    }
+} 
 
 int swap_v(int a, int b){ 
     std::cout<<"a = "<<a<<" and b = "<<b<<'\n';
