@@ -25,7 +25,7 @@ int main(){
     string label = "Hello number ";
 
     // print(vec,label);
-    fibonacci(10,20,v,5);
+    fibonacci(10,20,v,50);
 
 }
 
@@ -51,6 +51,6 @@ void fibonacci(int x, int y, vector<int> v, size_t n){
     }
     string label = "Hello fibo number: ";
     for(size_t i = 0; i < v.size(); i++){
-        cout<<label<<v[i]<<'\n';
+        cout<<label<<i<<" "<<v[i]<<'\n';
     }
 }
