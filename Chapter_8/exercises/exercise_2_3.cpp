@@ -16,6 +16,7 @@ sequence starting with its x and y arguments
 #include "../../std_lib_facilities.h"
 
 void print(vector<int>& vec, string& str);
+fibonacci(int x, int y, vector<int> v, int n);
 
 
 int main(){
@@ -29,5 +30,10 @@ int main(){
 void print(vector<int>& vec, string& str){
     for(size_t i = 0; i < vec.size(); i++){
         cout<<str<<vec[i]<<'\n';
+    }
+}
+fibonacci(int x, int y, vector<int> v, int n){
+    for(size_t i = 0; i < v.size(), i++){
+        
     }
 }
