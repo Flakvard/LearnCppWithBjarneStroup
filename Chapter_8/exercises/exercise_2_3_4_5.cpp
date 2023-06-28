@@ -24,7 +24,7 @@
 void print(vector<int>& vec, string& str);
 void fibonacci(int x, int y, vector<int> v, size_t n);
 void reverseVec(vector<int> vec);
-
+void swapVec(vector<int>& vec);
 
 int main(){
     vector<int> vec = {1,2,3,4,5,6,7,8,9,10};
@@ -34,12 +34,34 @@ int main(){
     print(vec,label);
     // fibonacci(10,20,v,50);
     reverseVec(vec);
+    swapVec(vec);
+
+
+
+}
+
+void swapVec(vector<int>& vec){
+    // Brute force way
+    for(size_t i = 1; i < vec.size(); i++){
+        for(size_t k = 1; k < vec.size(); k++){
+            if (vec[k-1]<vec[i]){
+                int temp; 
+                temp = vec[k-1];
+                vec[k-1] = vec[i]; 
+                vec[i] = temp; 
+            }
+        }
+    }
+    // inbuilt sort way
+    // sort(vec.begin(),vec.end(),greater());
+    string label = "Hello reverse vec ";
+    print(vec,label);
 
 }
 
 void reverseVec(vector<int> vecCopy){
     vector<int> vec = vecCopy;
-    string label = "Hello reverse vec ";
+    string label = "Hello copy reverse vec ";
     sort(vec.begin(),vec.end(),greater());
     print(vec,label);
 }
