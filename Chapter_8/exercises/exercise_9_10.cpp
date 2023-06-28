@@ -94,6 +94,17 @@ void sumOfProduct(const product prod){
     cout<<"The sum is "<<sum<<'\n';
 }
 
+void meanofProd(const product prod){
+    double mean = 0;
+    double sum = 0;
+    for(size_t i = 0; i < prod.price.size(); i++){
+        sum += prod.price[i];
+    }
+    mean = sum/prod.price.size();
+    cout<<"The mean is "<<mean<<'\n';
+}
+
+
 void sumOfTwoVec(const vector<double>& price, const vector<double>& weight){
     if(price.size() != weight.size()) 
         cout<<"Error, not same size\n";
