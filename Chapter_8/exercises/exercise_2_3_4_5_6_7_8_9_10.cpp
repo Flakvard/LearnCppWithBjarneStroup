@@ -24,7 +24,11 @@
     The tricky part here is to get the age vector in the correct order to match the sorted name vector.
     Hint: Before sorting name, take a copy and use that to make a copy of age in the right order after 
     sorting name.
- 8. Then, do that exercise again but allowing an arbitrary number of names
+8.  Then, do that exercise again but allowing an arbitrary number of names
+9.  Write a function that given two vector<double>s price and weight computes a value (an “index”) that
+    is the sum of all price[i]*weight[i]. Make sure to have weight.size()==price.size()
+10. Write a function maxv() that returns the largest element of a vector
+    argument.
 */
 #include "../../std_lib_facilities.h"
 
