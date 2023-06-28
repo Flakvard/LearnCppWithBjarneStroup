@@ -17,34 +17,46 @@ struct product
 {
     vector<double> price;
     vector<double> weight;
-    string name;
-    product(vector<double> p, vector<double> w, string n) :price(p),weight(w), name(n) {}
+    vector<string> name;
+    product(vector<double> p, vector<double> w, vector<string> n) :price(p),weight(w), name(n) {}
 };
 
 void sumOfTwoVec(const vector<double>& price, const vector<double>& weight);
 void sumOfProduct(const product prod);
-void maxv(const product prod);
+void maxPriceV(const product prod);
 
 int main(){
 
     vector<double> price = {10.29,20.2,20.9,30.2,50.3};
     vector<double> weight = {3,2,5,3,5};
-    string name = "shirt";
+    vector<string> name = {"shirt", "hat", "swimsuit", "shooes", "jeans"};
     sumOfTwoVec(price, weight);
 
-    if(price.size() == weight.size()){
-        product shirt(price, weight, name);
-        sumOfProduct(shirt);
+    if(price.size() != weight.size()){
+        cout<<"Error, not same size";
     }
+    product shirt(price, weight, name);
+    sumOfProduct(shirt);
+    maxPriceV(shirt);
 }
 
-void maxv(const product prod){
+void maxPriceV(const product prod){
     double maxVal = 0;
-    for (size_t i = 0; i < prod.price; i++)
-    {
-        /* code */
+    for (size_t i = 0; i < prod.price.size(); i++){
+        for (size_t k = 0; k < prod.price.size(); k++)
+        {
+            if(prod.price[i]>prod.price[k]){
+                maxVal = prod.price[i];
+            }
+        }
     }
-    
+    for (size_t i = 0; i < prod.price.size(); i++)
+    {
+        if (maxVal == prod.price[i])
+        {
+            cout<<"Larges price is "<<prod.name[i]<<" with a price of "<<prod.price[i]<<'\n';
+        }
+    }
 }
 void sumOfTwoVec(const vector<double>& price, const vector<double>& weight){
     if(price.size() != weight.size()) 
@@ -62,7 +74,7 @@ void sumOfProduct(const product prod){
     for(size_t i = 0; i < prod.price.size(); i++){
         sum += prod.price[i]*prod.weight[i];
     }
-    cout<<"The sum for "<<prod.name<<" is = "<<sum<<'\n';
+    cout<<"The sum is "<<sum<<'\n';
 
 
 }
