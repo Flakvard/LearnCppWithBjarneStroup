@@ -9,8 +9,8 @@ I have chosen VIM as my primary IDE for this and the [my customization are here]
 - [x] [Chapter 5](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_5) the exercises had error handling and catch errors. A game of Bulls and Cow was also quite challanging to write. I think reading the chapter was more interesting than the exercises this time.
 - [x] [Chapter 6](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_6) I had a long pause from working with C++. Especially from universtity and starting a family. 150 LeetCode problems got me going again. These exercies in chapter 6 were good, but not so fun and was also a reason I paused. 
 - [ ] [Chapter 7](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_7) Did not like all the exercises, but it was nice to finally feel like I understand what is going on in a 'bigger' program and make modifications to better the program. I can actually see how I can better this program and make it more user friendly. I think I might turn it into a simple unix program/command for my linux computers. 
-- [ ] [Chapter 8](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_8) 'Loading..'
-- [ ] Chapter 9
+- [ ] [Chapter 8](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_8) I had fun doing this one. It made be spend some time working on makefiles and unit testing with gtest, which was very helpful. The chapter had nothing to do with testing and makefiles specifically, but thats what I ended up in. Also working with structs and functions was also good'
+- [ ] [Chapter 9](https://github.com/Flakvard/LearnCppWithBjarneStroup/tree/main/Chapter_9) 'Loading...'
 - [ ] Chapter 10
 - [ ] Chapter 11
 - [ ] Chapter 12
