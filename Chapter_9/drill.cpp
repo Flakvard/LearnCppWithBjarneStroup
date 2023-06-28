@@ -20,13 +20,15 @@ that is not in the [1,31] range. Test each version with at least one invalid dat
 #include "../std_lib_facilities.h"
 
 struct Date{
-    int year;
-    int month;
     int day;
+    int month;
+    int year;
+    // Date(int d, int m, int y) : day(d), month(m), year(y) {}
 };
 
 Date add_day(Date today);
 void init_date(Date& today, int day, int month, int year);
+void printDate(Date& today);
 
 int main(int argc, char* argv[]){
 // 1. The version from §9.4.1
@@ -36,17 +38,15 @@ int main(int argc, char* argv[]){
 
     Date tomorrow = add_day(today);
 
-    cout<<today.day;
-    cout<<today.month;
-    cout<<today.year;
-
-    cout<<'\n';
-
-    cout<<tomorrow.day;
-    cout<<tomorrow.month;
-    cout<<tomorrow.year;
+    printDate(today);
+    printDate(tomorrow);
 }
 
+void printDate(Date& today){
+    cout<<today.day<<"/";
+    cout<<today.month<<"-";
+    cout<<today.year<<"\n";
+}
 void init_date(Date& today, int day, int month, int year){
     today.day = day;
     today.month = month;
