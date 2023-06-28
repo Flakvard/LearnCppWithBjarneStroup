@@ -24,6 +24,10 @@ struct product
 void sumOfTwoVec(const vector<double>& price, const vector<double>& weight);
 void sumOfProduct(const product prod);
 void maxPriceV(const product prod);
+void minPriceV(const product prod);
+void meanofProd(const product prod);
+void medianofProd(const product prod);
+void printProd(const product prod, string label, double val);
 
 int main(){
 
@@ -35,13 +39,42 @@ int main(){
     if(price.size() != weight.size()){
         cout<<"Error, not same size";
     }
-    product shirt(price, weight, name);
-    sumOfProduct(shirt);
-    maxPriceV(shirt);
+    product shopProd(price, weight, name);
+    sumOfProduct(shopProd);
+    maxPriceV(shopProd);
+    minPriceV(shopProd);
+    meanofProd(shopProd);
+    medianofProd(shopProd);
+}
+
+
+void minPriceV(const product prod){
+    double minVal = 0;
+    string label = "Smallest";
+    for (size_t i = 0; i < prod.price.size(); i++){
+        for (size_t k = 0; k < prod.price.size(); k++)
+        {
+            if(prod.price[i]<prod.price[k]){
+                minVal = prod.price[i];
+            }
+        }
+    }
+    printProd(prod, label, minVal);
+}
+
+void printProd(const product prod, string label, double val){
+    for (size_t i = 0; i < prod.price.size(); i++)
+    {
+        if (val == prod.price[i])
+        {
+            cout<<label<<" price is "<<prod.name[i]<<" with a price of "<<prod.price[i]<<'\n';
+        }
+    }
 }
 
 void maxPriceV(const product prod){
     double maxVal = 0;
+    string label = "Largest";
     for (size_t i = 0; i < prod.price.size(); i++){
         for (size_t k = 0; k < prod.price.size(); k++)
         {
@@ -50,14 +83,17 @@ void maxPriceV(const product prod){
             }
         }
     }
-    for (size_t i = 0; i < prod.price.size(); i++)
-    {
-        if (maxVal == prod.price[i])
-        {
-            cout<<"Larges price is "<<prod.name[i]<<" with a price of "<<prod.price[i]<<'\n';
-        }
-    }
+    printProd(prod, label, maxVal);
 }
+
+void sumOfProduct(const product prod){
+    double sum = 0;
+    for(size_t i = 0; i < prod.price.size(); i++){
+        sum += prod.price[i]*prod.weight[i];
+    }
+    cout<<"The sum is "<<sum<<'\n';
+}
+
 void sumOfTwoVec(const vector<double>& price, const vector<double>& weight){
     if(price.size() != weight.size()) 
         cout<<"Error, not same size\n";
@@ -67,14 +103,4 @@ void sumOfTwoVec(const vector<double>& price, const vector<double>& weight){
 
     }
     cout<<"The sum is = "<<sum<<'\n';
-}
-
-void sumOfProduct(const product prod){
-    double sum = 0;
-    for(size_t i = 0; i < prod.price.size(); i++){
-        sum += prod.price[i]*prod.weight[i];
-    }
-    cout<<"The sum is "<<sum<<'\n';
-
-
 }
