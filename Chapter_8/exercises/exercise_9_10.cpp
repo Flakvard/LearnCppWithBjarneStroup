@@ -31,9 +31,9 @@ void printProd(const product prod, string label, double val);
 
 int main(){
 
-    vector<double> price = {10.29,20.2,20.9,30.2,50.3};
-    vector<double> weight = {3,2,5,3,5};
-    vector<string> name = {"shirt", "hat", "swimsuit", "shooes", "jeans"};
+    vector<double> price = {10.29,20.2,20.9,30.2,50.3,5.3};
+    vector<double> weight = {3,2,5,3,5,3};
+    vector<string> name = {"shirt", "hat", "swimsuit", "shooes", "jeans","watch"};
     sumOfTwoVec(price, weight);
 
     if(price.size() != weight.size()){
@@ -104,6 +104,25 @@ void meanofProd(const product prod){
     cout<<"The mean is "<<mean<<'\n';
 }
 
+void medianofProd(const product prod){
+    double median = 0; 
+    double sizeHalved = 0;
+    vector<double> medianList = prod.price;
+    sort(medianList.begin(),medianList.end());
+
+    if(medianList.size() % 2 == 0){
+        double sizeHalvedMinusOne = medianList.size()/2-1;
+        double sizeHalvedPlusOne = medianList.size()/2;
+        sizeHalvedMinusOne = medianList[sizeHalvedMinusOne];
+        sizeHalvedPlusOne = medianList[sizeHalvedPlusOne];
+        median = (sizeHalvedMinusOne + sizeHalvedPlusOne) / 2;
+    }else{
+        sizeHalved = medianList.size()/2;
+        median = medianList[sizeHalved+0.5];
+    }
+    cout<<"The median is "<<median<<'\n';
+    
+}
 
 void sumOfTwoVec(const vector<double>& price, const vector<double>& weight){
     if(price.size() != weight.size()) 
