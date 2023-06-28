@@ -8,6 +8,10 @@
     Either return a struct containing the results or pass them back 
     through reference arguments. Which of the two ways of returning several 
     result values do you prefer and why?
+    ANSWER:
+    I prefer using struct because it is easier to read and handle. I cannot 
+    manupulate the data inside the struct, when passing a const reference.
+    Also, when using struct I can more easily build upon it.
 */
 
 
