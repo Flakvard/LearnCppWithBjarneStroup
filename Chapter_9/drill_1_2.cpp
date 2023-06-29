@@ -10,9 +10,6 @@ that is not in the [1,31] range. Test each version with at least one invalid dat
 2004, 13, –5).
  1. The version from §9.4.1
  2. The version from §9.4.2
- 3. The version from §9.4.3
- 4. The version from §9.7.1
- 5. The version from §9.7.4
 
 */
 
