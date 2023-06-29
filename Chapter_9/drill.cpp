@@ -23,20 +23,26 @@ struct Date{
     int day;
     int month;
     int year;
-    // Date(int d, int m, int y) : day(d), month(m), year(y) {}
+    Date(int d, int m, int y) : day(d), month(m), year(y) {}
+    void add_day(int n);
 };
 
-Date add_day(Date today);
 void init_date(Date& today, int day, int month, int year);
 void printDate(Date& today);
 
 int main(int argc, char* argv[]){
+    cout<<argc<<'\n';
+    cout<<*argv<<'\n';
 // 1. The version from §9.4.1
 // June 25, 1978.
-    Date today;
-    init_date(today, 25, 06, 1978);
+    Date today(25,06,1978);
+    // init_date(today, 25, 06, 1978);
+    printDate(today);
+    today.add_day(1);
+    printDate(today);
 
-    Date tomorrow = add_day(today);
+    Date tomorrow = today;
+    tomorrow.add_day(1);
 
     printDate(today);
     printDate(tomorrow);
@@ -47,13 +53,13 @@ void printDate(Date& today){
     cout<<today.month<<"-";
     cout<<today.year<<"\n";
 }
+
 void init_date(Date& today, int day, int month, int year){
     today.day = day;
     today.month = month;
     today.year = year;
 }
 
-Date add_day(Date today){
-    today.day = today.day + 1;
-    return today;
+void Date::add_day(int n){
+    Date::day += n;
 }
