@@ -13,8 +13,81 @@ that is not in the [1,31] range. Test each version with at least one invalid dat
  5. The version from §9.7.4
 
 */
+enum class Month {
+    jan = 1, feb, mar, apr, may, jun, jul, aug, sep, okt, nov, des
+};
+
+class Year
+{
+public:
+    class Invalid {};
+    Year(int y);
+    int year(){return y;}
+    //~Year();
+private:
+    static const int min = 1800;
+    static const int max = 2200;
+    int y;
+};
+
+
+
+class Date
+{
+public:
+    Date();
+    Date(Year y);
+    Date(int d, Month m, Year y);
+    void add_day(int n);
+    Month month(){return m;}
+    int day(){return d;}
+    // int year();
+    //int month(){return m()}
+private:
+    int d {1};
+    Month m {Month::jan};
+    Year y {2000};
+};
 
 
 #include "../std_lib_facilities.h"
 
+int main(int argc, char* argv[]){
+    cout<<argc<<'\n';
+    cout<<*argv<<'\n';
+// June 25, 1978.
 
+    Date today(25, Month::jun, Year(1978));
+    Date defaultDate;
+    cout<<defaultDate.day()<<'\n';
+    // cout<<defaultDate.month()<<'\n';
+    // cout<<defaultDate.year()<<'\n';
+    cout<<today.day()<<'\n';
+    today.add_day(1);
+    cout<<today.day()<<'\n';
+    // cout<<today.year()<<'\n';
+    // cout<<today.month()<<'\n'; TODO: fix
+    
+}
+
+// Date::Date() :d(1), m(Month::jan), y(2000) {};
+
+Date::Date(int day, Month month, Year year) : d(day), m(month), y(year){}
+
+int Date::year()
+{
+    return Year::year();
+};
+
+// Date::~Date()
+// {
+// }
+
+void Date::add_day(int n){
+    Date::d += n;
+}
+
+Year::Year(int year) : y(year){
+    if(year<min||year>=max) 
+        throw Invalid{}; 
+}
