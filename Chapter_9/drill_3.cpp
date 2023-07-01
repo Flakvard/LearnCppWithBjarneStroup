@@ -14,6 +14,7 @@ that is not in the [1,31] range. Test each version with at least one invalid dat
 
 */
 
+#include "../std_lib_facilities.h"
 
 enum class Month {
     jan = 1, feb, mar, apr, may, jun, jul, aug, sep, okt, nov, des
@@ -51,8 +52,8 @@ private:
 };
 
 const Date& default_date();
+ostream& operator<<(ostream& os, const Date& d);
 
-#include "../std_lib_facilities.h"
 
 int main(int argc, char* argv[]){
     cout<<argc<<'\n';
@@ -65,7 +66,7 @@ int main(int argc, char* argv[]){
     vector<Date>hello(10);
     for (size_t i = 0; i < 10; i++)
     {
-        cout<<hello[i].day()<<'\n';
+        cout<<hello[i]<<'\n';
     }
     
     //cout<<defaultDate.month()<<'\n';
@@ -103,4 +104,11 @@ const Date &default_date()
 {
     static Date dd(1, Month::jan, Year(2001));
     return dd;
+}
+
+
+ostream& operator<<(ostream& os, const Date& d){
+    return os<<'('<<d.day()
+             <<','<<int(d.month())
+             <<','<<d.year().year()<<')';
 }
