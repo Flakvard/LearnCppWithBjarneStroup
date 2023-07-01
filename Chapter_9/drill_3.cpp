@@ -60,14 +60,16 @@ int main(int argc, char* argv[]){
     // June 25, 1978.
 
     Date today(25, Month::jun, Year(1978));
-    Date hello = default_date();
-
-    cout<<hello.day();
-    cout<<default_date().day();
     Date defaultDate;
-    // cout<<defaultDate.day()<<'\n';
-    // cout<<defaultDate.month()<<'\n';
-    // cout<<defaultDate.year()<<'\n';
+    cout<<defaultDate.day()<<'\n';
+    vector<Date>hello(10);
+    for (size_t i = 0; i < 10; i++)
+    {
+        cout<<hello[i].day()<<'\n';
+    }
+    
+    //cout<<defaultDate.month()<<'\n';
+    //cout<<defaultDate.year()<<'\n';
     //cout<<today.day()<<'\n';
     today.add_day(1);
     // cout<<today.day()<<'\n';
@@ -87,16 +89,6 @@ Date::Date()
     y(default_date().year())
 {}
 
-// int Date::year()
-// {
-//     return Year::year();
-// };
-
-
-
-// Date::~Date()
-// {
-// }
 
 void Date::add_day(int n){
     Date::d += n;
@@ -109,7 +101,6 @@ Year::Year(int year) : y(year){
 
 Date &default_date()
 {
-    // TODO: insert return statement here
     static Date dd(1, Month::jan, Year(2001));
     return dd;
 }
