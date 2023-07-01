@@ -41,16 +41,16 @@ public:
     //Date(Year y);
     Date(int d, Month m, Year y);
     void add_day(int n);
-    int day(){return d;}
-    Month month(){return m;}
-    Year year(){return y;}
+    int day()const{return d;}
+    Month month()const{return m;}
+    Year year()const{return y;}
 private:
     int d;
     Month m;
     Year y;
 };
 
-Date& default_date();
+const Date& default_date();
 
 #include "../std_lib_facilities.h"
 
@@ -99,7 +99,7 @@ Year::Year(int year) : y(year){
         throw Invalid{}; 
 }
 
-Date &default_date()
+const Date &default_date()
 {
     static Date dd(1, Month::jan, Year(2001));
     return dd;
