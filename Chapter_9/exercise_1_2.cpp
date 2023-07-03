@@ -1,0 +1,76 @@
+/*
+    1. List sets of plausible operations for the examples of real-world objects in 
+    §9.1 (such as toaster). 
+    startToaster();
+    stopToaster();
+    checkCelsius();
+    checkButton();
+    setMeasurementCelsius();
+    setTimer();
+    startTimer();
+    checkTimer();
+*/
+/*
+    2. Design and implement a Name_pairs class holding (name,age) pairs where 
+    name is a string and age is a double. Represent that as a vector<string>
+    (called name) and a vector<double> (called age) member.
+    Provide an input operation read_names() that reads a series of names.
+    Provide a read_ages() operation that prompts the user for an age for each name.
+    Provide a print() operation that prints out the (name[i],age[i]) pairs (one per line) 
+    in the order determined by the name vector.
+    Provide a sort() operation that sorts the name vector in alphabetical order and reorganizes the age
+    vector to match.
+    Implement all “operations” as member functions.
+    Test the class (of course: test early and often).
+*/
+
+#include "../std_lib_facilities.h"
+class Name_pairs{
+    public:
+        Name_pairs();
+        void read_names();
+        void read_ages();
+        void print();
+        // void sort();
+    private:
+        vector<double> age;
+        vector<string> name;
+
+};
+
+int main(){
+    Name_pairs namepair;
+    namepair.print();
+}
+
+Name_pairs::Name_pairs(){
+    Name_pairs::read_names();
+    Name_pairs::read_ages();
+}
+
+void Name_pairs::read_names(){
+    cout<<"Write list of names\nEnd with 'quit'\n";
+    string x;
+    for(;;cin>>x){
+        if(x == "quit") break;
+        name.push_back(x);
+    }
+}
+void Name_pairs::read_ages(){
+    cout<<"Write ages for each of the name list\nEnd with 'quit'\n";
+    string x;
+    for(;;cin>>x){
+        if(x == "quit") break;
+        double age_num;
+        istringstream(x)>>age_num;
+        age.push_back(age_num);
+    }
+}
+
+void Name_pairs::print(){
+    size_t count = name.size();
+    for (size_t i = 0; i < count; i++){
+        cout<<name[i]<<'\t'<<age[i]<<'\n';
+    }
+    
+}
