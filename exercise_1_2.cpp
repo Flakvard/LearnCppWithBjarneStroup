@@ -1,7 +1,16 @@
 /*
     1. List sets of plausible operations for the examples of real-world objects in 
     §9.1 (such as toaster). 
-
+    startToaster();
+    stopToaster();
+    checkCelsius();
+    checkButton();
+    setMeasurementCelsius();
+    setTimer();
+    startTimer();
+    checkTimer();
+*/
+/*
     2. Design and implement a Name_pairs class holding (name,age) pairs where 
     name is a string and age is a double. Represent that as a vector<string>
     (called name) and a vector<double> (called age) member. Provide an input operation read_names() that reads a series of names. Provide a read_
