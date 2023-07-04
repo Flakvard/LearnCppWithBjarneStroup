@@ -22,6 +22,9 @@
     vector to match.
     Implement all “operations” as member functions.
     Test the class (of course: test early and often).
+    
+    3. Replace Name_pair::print() with a (global) operator << and define ==
+    and != for Name_pairs
 */
 
 #include "../std_lib_facilities.h"
