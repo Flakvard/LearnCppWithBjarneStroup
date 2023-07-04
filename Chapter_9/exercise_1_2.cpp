@@ -27,11 +27,12 @@
 #include "../std_lib_facilities.h"
 class Name_pairs{
     public:
+        class Invalid{};
         Name_pairs();
         void read_names();
         void read_ages();
         void print();
-        // void sort();
+        void printSorted();
     private:
         vector<double> age;
         vector<string> name;
@@ -41,6 +42,7 @@ class Name_pairs{
 int main(){
     Name_pairs namepair;
     namepair.print();
+    namepair.printSorted();
 }
 
 Name_pairs::Name_pairs(){
@@ -51,7 +53,7 @@ Name_pairs::Name_pairs(){
 void Name_pairs::read_names(){
     cout<<"Write list of names\nEnd with 'quit'\n";
     string x;
-    for(;;cin>>x){
+    for(;cin>>x;){
         if(x == "quit") break;
         name.push_back(x);
     }
@@ -59,18 +61,33 @@ void Name_pairs::read_names(){
 void Name_pairs::read_ages(){
     cout<<"Write ages for each of the name list\nEnd with 'quit'\n";
     string x;
-    for(;;cin>>x){
+    double age_num = 0;
+    for(;cin>>x;){
         if(x == "quit") break;
-        double age_num;
         istringstream(x)>>age_num;
         age.push_back(age_num);
+    }
+    if (age.size() != name.size()){
+        throw Invalid();
     }
 }
 
 void Name_pairs::print(){
     size_t count = name.size();
     for (size_t i = 0; i < count; i++){
-        cout<<name[i]<<'\t'<<age[i]<<'\n';
+        cout<<i<<'\t'<<name[i]<<'\t'<<age[i]<<'\n';
     }
-    
+}
+
+void Name_pairs::printSorted(){
+    vector<string> nameCopy = name;
+    std::sort(nameCopy.begin(),nameCopy.end());
+
+    for(size_t k = 0; k < nameCopy.size(); k++){
+        for(size_t i = 0; i < nameCopy.size(); i++){
+            if (name[k] == nameCopy[i]){
+                cout<<k<<'\t'<<nameCopy[k]<<'\t'<<age[i]<<'\n';
+            }
+        }
+    }
 }
