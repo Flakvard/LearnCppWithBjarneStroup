@@ -36,16 +36,22 @@ class Name_pairs{
         void read_ages();
         void print();
         void printSorted();
+        vector<double> getAge()const {return age;}
+        vector<string> getName()const {return name;}
+        size_t size() const { return name.size();}
     private:
         vector<double> age;
         vector<string> name;
 
 };
 
+ostream& operator<<(ostream& os, const Name_pairs& nameAgePair);
+
 int main(){
     Name_pairs namepair;
-    namepair.print();
-    namepair.printSorted();
+    cout<<namepair<<'\n';
+    // namepair.print();
+    //namepair.printSorted();
 }
 
 Name_pairs::Name_pairs(){
@@ -93,4 +99,16 @@ void Name_pairs::printSorted(){
             }
         }
     }
+}
+
+    //3. Replace Name_pair::print() with a (global) operator << and define ==
+    //and != for Name_pairs
+ostream& operator<<(ostream& os, const Name_pairs& nameAgePair){
+    size_t count = nameAgePair.size();
+    vector<double> age = nameAgePair.getAge();
+    vector<string> name = nameAgePair.getName();
+    for (size_t i = 0; i < count; i++){
+        return os<<name[i]<<age[i];
+    }
+    
 }
