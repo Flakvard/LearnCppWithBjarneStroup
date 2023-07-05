@@ -45,11 +45,21 @@ class Name_pairs{
 
 };
 
+bool operator==(const Name_pairs &first, const Name_pairs &second);
+bool operator!=(const Name_pairs &first, const Name_pairs &second);
 ostream& operator<<(ostream& os, const Name_pairs& nameAgePair);
 
 int main(){
     Name_pairs namepair;
+    Name_pairs sium;
     cout<<namepair<<'\n';
+    if (namepair==sium)
+    {
+        cout<<"Yes"<<'\n';
+    }else{
+        cout<<"No"<<'\n';
+    }
+    
     // namepair.print();
     //namepair.printSorted();
 }
@@ -110,5 +120,18 @@ ostream& operator<<(ostream& os, const Name_pairs& nameAgePair){
     for (size_t i = 0; i < count; i++){
         return os<<name[i]<<age[i];
     }
-    
+}
+
+bool operator==(const Name_pairs &first, const Name_pairs &second)
+{
+    if (first.getName() == second.getName() && first.getAge() == second.getAge())
+        return true;
+    return false;
+}
+
+bool operator==(const Name_pairs &first, const Name_pairs &second)
+{
+    if (first.getName() == second.getName() && first.getAge() == second.getAge())
+        return false;
+    return true;
 }
